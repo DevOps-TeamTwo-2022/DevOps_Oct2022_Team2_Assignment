@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %} - My Webpage</title>
+
+    <div class="topnav">
+      <a href="{{url_for('mainFile')}}">Main</a>
+      <a href="{{url_for('matchFile')}}">Match Students</a>
+    </div>    
+
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+      {% block footer %}
+      <br><hr>
+      &copy; Copyright 2023 by <a href="https://www.np.edu.sg/">Ngee Ann Poly</a>.
+      {% endblock %}
+    </div>
+  </body>
+</html>
