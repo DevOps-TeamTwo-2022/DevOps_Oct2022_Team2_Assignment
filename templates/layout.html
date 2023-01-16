@@ -4,20 +4,11 @@
     {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}{% endblock %} - My Webpage</title>
-
-    <!--
-    <div class="topnav">
-      <div class="topnav-right">
-        <a href="{{url_for('mainFile')}}">Main</a>
-        <a href="{{url_for('matchFile')}}">Match Students</a>
-      </div>
-    </div>  
-  -->  
+    <title>{% block title %}{% endblock %} - My Webpage</title>  
 
     <ul class="sidenav">
-      <li><a href="{{url_for('mainFile')}}">Main</a></li>
       <li><a href="{{url_for('matchFile')}}">Match Students</a></li>
+      <li><a href="{{url_for('mainFile')}}">Main</a></li>
     </ul>
 
     {% endblock %}
