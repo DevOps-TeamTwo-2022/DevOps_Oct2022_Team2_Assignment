@@ -1,26 +1,94 @@
 body {
   background-color: white;
+  margin:0;
 }
 
-/* Add a black background color to the top navigation */
+.content {
+  margin-top:0;
+  background-color: rgb(255, 213, 0);
+}
+
+/*
+
 .topnav {
-  background-color: rgb(255, 255, 255);
   overflow: hidden;
+  background-color: white;
+  margin-bottom:-22px;
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  background-color: rgb(255, 255, 255);
   color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
-  font-size: 17px;
+  font-size: 120%;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
   background-color: #ddd;
   color: black;
+}
+
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.topnav-right {
+  float: right;
+  transform: translate(-100%);
+}
+
+*/
+
+ul.sidenav {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #f1f1f1;
+  height: auto;
+  overflow: auto;
+  margin-bottom:-22px;
+}
+
+ul.sidenav li {
+  transform: translate(-10%);
+}
+
+ul.sidenav li a {
+  font-size:120%;
+  display: block;
+  color: #000;
+  text-decoration: none;
+  float: right;
+  padding: 15px;
+}
+ 
+ul.sidenav li a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+ul.sidenav li a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
+@media screen and (max-width: 600px) {
+  ul.sidenav li a {
+    font-size:110%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  ul.sidenav li {
+    transform: translate(-0%);
+  }
+  ul.sidenav li a {
+    text-align: center;
+    float: none;
+    font-size:100%;
+  }
 }

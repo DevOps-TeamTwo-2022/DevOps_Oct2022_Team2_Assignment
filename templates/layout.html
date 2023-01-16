@@ -3,22 +3,33 @@
   <head>
     {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %} - My Webpage</title>
 
+    <!--
     <div class="topnav">
-      <a href="{{url_for('mainFile')}}">Main</a>
-      <a href="{{url_for('matchFile')}}">Match Students</a>
-    </div>    
+      <div class="topnav-right">
+        <a href="{{url_for('mainFile')}}">Main</a>
+        <a href="{{url_for('matchFile')}}">Match Students</a>
+      </div>
+    </div>  
+  -->  
+
+    <ul class="sidenav">
+      <li><a href="{{url_for('mainFile')}}">Main</a></li>
+      <li><a href="{{url_for('matchFile')}}">Match Students</a></li>
+    </ul>
 
     {% endblock %}
   </head>
   <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
+    <div id="content" class="content">{% block content %}{% endblock %}</div>
+    <div id="footer" class="theFooter">
       {% block footer %}
       <br><hr>
       &copy; Copyright 2023 by <a href="https://www.np.edu.sg/">Ngee Ann Poly</a>.
       {% endblock %}
     </div>
+
   </body>
 </html>
