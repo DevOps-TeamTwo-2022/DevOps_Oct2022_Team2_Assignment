@@ -23,7 +23,7 @@ jobs:
         ls
     - name: test with pytest
       run: |
-        pytest tests/flaskTest.py -v -cov
+        python -m pytest tests/flaskTest.py -v -cov
 
     - if: ${{ failure() }}
       uses: JasonEtco/create-an-issue@v2
