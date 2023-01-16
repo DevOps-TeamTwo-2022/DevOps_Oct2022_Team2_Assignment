@@ -1,0 +1,33 @@
+name: CI for Hello World
+
+on:
+  push:
+    branches: [main,dansBranch]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: Install Libraries
+      run: |
+        pip install flake8 pytest pytest-cov
+        pip install Flask
+    - name: Checkout Own Repo
+      uses: actions/checkout@v2
+      with:
+        repository: DevOps-TeamTwo-2022/DevOps_Oct2022_Team2_Assignment
+    - name: list our contents
+      run: |
+        ls
+    - name: test with pytest
+      run: |
+        python -m pytest --import-mode=append tests/
+    - if: ${{ failure() }}
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/ISSUE_TEMPLATE.md

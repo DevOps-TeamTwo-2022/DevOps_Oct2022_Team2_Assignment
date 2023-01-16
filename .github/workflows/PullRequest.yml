@@ -1,0 +1,52 @@
+name: CD for delivery
+
+on:
+  pull_request:
+    branches: [main,dansBranch]
+  push:
+    branches: [main,dansBranch]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        python-version: 3.8
+    - name: Install Libraries
+      run: |
+        pip install flake8 pytest pytest-cov
+        pip install Flask
+    - name: Checkout Own Repo
+      uses: actions/checkout@v2
+      with:
+        repository: DevOps-TeamTwo-2022/DevOps_Oct2022_Team2_Assignment
+    - name: list our contents
+      run: |
+        ls
+    - name: test with pytest
+      run: |
+        python -m pytest --import-mode=append tests/ --junitxml=report.xml
+    - if: ${{ failure() }}
+      uses: JasonEtco/create-an-issue@v2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        filename: .github/ISSUE_TEMPLATE.md
+  
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action/composite@v2
+      if: always()
+      with:
+        junit_files: "report.xml"    
+    - name: create folder
+      run: mkdir downloads
+      
+    - name: move files
+      run: mv *.xml ./downloads
+      
+    - name: Upload document
+      uses: actions/upload-artifact@v2
+      with: 
+        name: assetDocuments
+        path: downloads
