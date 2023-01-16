@@ -1,9 +1,9 @@
-import pytest 
+import pytest
 from flaskPy import *
 from flaskPy import app
 
 #tests if server error occurred or redirection not done e.g redirect from / to /main automatically
-def flaskPy_testOne_redirection():
+def test_flaskPy_testOne():
   
   response = app.test_client().get('/')
   
@@ -24,4 +24,4 @@ def flaskPy_testOne_redirection():
 
   assert not errors, "errors occured:\n{}".format("\n".join(errors))  
     
-flaskPy_testOne_redirection()
+test_flaskPy_testOne()
