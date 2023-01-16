@@ -1,6 +1,6 @@
 from flask import Flask,render_template,redirect,url_for
 
-# for vscode, type python flaskPy.py in terminal to run at 5221 port
+## for vscode, type python flaskPy.py in terminal to run at 5221 port
 # 1) pytest tests/flaskTest.py to run test script
 # python -m pytest tests/flaskTest.py if 1) doesn't work
 # pytest -s prints console
