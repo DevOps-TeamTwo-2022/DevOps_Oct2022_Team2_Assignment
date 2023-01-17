@@ -22,6 +22,7 @@ CREATE TABLE Internship_Student_Data (
 --DELETE FROM Internship_Student_Data WHERE StudentID='S12345670A';
 
 INSERT INTO Internship_Student_Data VALUES ('S12345670A', 'Student 1','Software Development','Unassigned');
+INSERT INTO Internship_Student_Data VALUES ('S12345671B', 'Student 2','System Development','Unassigned');
 
 --=====================================================
 --=====================================================
