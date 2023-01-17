@@ -6,39 +6,39 @@ on:
     
 jobs:
   build:
-    runs-on: ubuntu-latest
-    services:
-      mssql:
-        image: mcr.microsoft.com/mssql/server:2019-latest
-        env:
-          SA_PASSWORD: MyTestPassword
-          ACCEPT_EULA: 'Y'
-        ports: [1433]      
+    runs-on: windows-latest  
     steps:
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
+
+    - name: Install a SQL Server suite of tools
+      uses: potatoqualitee/mssqlsuite@v1.7
+      with:
+        install: sqlengine, sqlclient, sqlpackage, localdb
+
+    - name: Run sqlclient
+      run: sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "SELECT @@version;"
+
     - name: Install Libraries
       run: |
         pip install flake8 pytest pytest-cov
         pip install Flask
-        pip install pyodbc
-    - name: Install Microsoft ODBC
-      run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y  
-      env:
-        PORT: ${{ job.services.mssql.ports[1433] }}          
+        pip install pyodbc  
+
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
         repository: DevOps-TeamTwo-2022/DevOps_Oct2022_Team2_Assignment
+   
     - name: list our contents
       run: |
         ls
+    
     - name: test with pytest
       run: |
         python -m pytest --import-mode=append tests/
-        
-    
+   
     - if: ${{ failure() }}
       uses: JasonEtco/create-an-issue@v2
       env:
