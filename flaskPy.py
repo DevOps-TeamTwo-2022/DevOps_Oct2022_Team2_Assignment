@@ -8,7 +8,7 @@ from flask import Flask,render_template,redirect,url_for
 
 app = Flask(__name__)
 
-"""
+
 # Specifying the ODBC driver, server name, database, etc. directly
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
@@ -23,8 +23,6 @@ cursor.execute('SELECT Name,Preference,Status FROM Internship_Student_Data')
 
 for row in cursor:
     print(row)
-
-"""
 
 # Redirect http://localhost:5221/ to http://localhost:5221/main
 @app.route("/")
