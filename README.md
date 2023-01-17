@@ -1,6 +1,9 @@
 # DevOps_Oct2022_Team2_Assignment
 Team Members:
-Justin Seow, Lim Jin Hui, Muhammad Dandarawie Bin Rohani, Ahmad Syufi Mikail Bin Anis /IT
+Justin Seow, Lim Jin Hui, Muhammad Dandarawie Bin Rohani, Ahmad Syufi Mikail Bin Anis 
+
+
+
 
 Description of project:
 The system shall allow users to interact with the system using the front-end user
@@ -11,6 +14,9 @@ the resumes of the interested semester of students. The user should be able to
 change the setting of resume directory for next semester when needed. Utility
 modules could also be created to further enhance the operations of the system
 where necessary
+
+
+
 
 Test Cases:
 Test Scenario 1
