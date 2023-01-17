@@ -42,6 +42,7 @@ CREATE TABLE Internship_Company_Data (
 
 INSERT INTO Internship_Company_Data (Company_Name, Job_Role, Company_Contact, Email) VALUES ('Company A', 'Software Developer','Mr A','devopsTeam2Company1');
 
+SELECT * FROM Internship_Company_Data
 --=====================================================
 --=====================================================
 --=====================================================
