@@ -3,10 +3,6 @@ name: Release
 on:
   pull_request:
     branches: [main,dansBranch]
-  push:
-    branches: [main,dansBranch]
-    tags:
-      - 'v*'
     
 jobs:
   build:

@@ -1,5 +1,5 @@
 from flask import Flask,render_template,redirect,url_for
-import pyodbc
+#import pyodbc
 
 ## for vscode, type python flaskPy.py in terminal to run at 5221 port
 # 1) pytest tests/flaskTest.py to run test script
@@ -7,6 +7,7 @@ import pyodbc
 # pytest -s prints console
 
 app = Flask(__name__)
+
 
 # Specifying the ODBC driver, server name, database, etc. directly
 cnxn = pyodbc.connect(
