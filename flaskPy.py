@@ -9,12 +9,13 @@ import pyodbc
 app = Flask(__name__)
 
 # Specifying the ODBC driver, server name, database, etc. directly
-"""
+
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
         SERVER=(localdb)\MSSQLLocalDB; \
             DATABASE=DevOps_TeamTwo_2022; \
             Trusted_Connection=yes;')
+
 """
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
@@ -22,15 +23,35 @@ cnxn = pyodbc.connect(
             DATABASE=tempdb; \
             UID=sa; \
             PWD=dbatools.I0;')
-
+"""
 # Create a cursor from the connection
 cursor = cnxn.cursor()
 
+table_List = ['Internship_Student_Data','Internship_Company_Data','Internship_Information_Data']
+
+toCreate = []
+
+for i in table_List:
+    if cursor.tables(table=i).fetchone(): 
+        print("yes table: ",i)
+    else:
+        toCreate.append(i)      
 
 s = "SELECT StudentID, Name,Preference, \
     Status FROM Internship_Student_Data; \
         SELECT ID, Company_Name,Job_Role \
             FROM Internship_Company_Data;"
+
+for i in toCreate:
+    if i == "Internship_Student_Data":
+        s = "CREATE TABLE Internship_Student_Data(StudentID varchar(10) NOT NULL PRIMARY KEY CLUSTERED,Name varchar(255) NOT NULL,Preference varchar(255) NOT NULL,Status varchar(11) NOT NULL); \
+            CREATE TABLE Internship_Company_Data (ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED,Company_Name varchar(255) NOT NULL,Job_Role varchar(255) NOT NULL,Company_Contact varchar(255) NOT NULL,Email varchar(255) NOT NULL); \
+            CREATE TABLE Internship_Information_Data (StudentID varchar(10) not null primary key foreign key references Internship_Student_Data(StudentID),ID INT not null foreign key references Internship_Company_Data(ID)); \
+            SELECT StudentID, Name,Preference, \
+            Status FROM Internship_Student_Data; \
+            SELECT ID, Company_Name,Job_Role \
+            FROM Internship_Company_Data;"  
+           
 """  
 s = "SELECT StudentID, Name,Preference, \
     Status FROM Internship_Student_Data;"  

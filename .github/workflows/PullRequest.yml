@@ -15,7 +15,7 @@ jobs:
     - name: Install a SQL Server suite of tools
       uses: potatoqualitee/mssqlsuite@v1.7
       with:
-        install: sqlengine, sqlclient, sqlpackage, localdb
+        install: sqlclient, sqlpackage, localdb
 
     - name: Run sqlclient
       run: sqlcmd -S localhost -U sa -P dbatools.I0 -d tempdb -Q "SELECT @@version;"
