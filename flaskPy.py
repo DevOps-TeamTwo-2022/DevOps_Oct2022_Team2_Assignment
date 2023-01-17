@@ -9,12 +9,19 @@ import pyodbc
 app = Flask(__name__)
 
 # Specifying the ODBC driver, server name, database, etc. directly
+"""
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
         SERVER=(localdb)\MSSQLLocalDB; \
             DATABASE=DevOps_TeamTwo_2022; \
             Trusted_Connection=yes;')
-
+"""
+cnxn = pyodbc.connect(
+    'DRIVER={ODBC Driver 17 for SQL Server}; \
+        SERVER=localhost; \
+            DATABASE=MyTestDb; \
+            UID=sa; \
+            PWD=MyTestPassword;')
 # Create a cursor from the connection
 cursor = cnxn.cursor()
 
@@ -26,7 +33,8 @@ s = "SELECT StudentID, Name,Preference, \
 """  
 s = "SELECT StudentID, Name,Preference, \
     Status FROM Internship_Student_Data;"  
-"""            
+""" 
+           
 s = filter(None, s.split(';'))
 
 for i in s:

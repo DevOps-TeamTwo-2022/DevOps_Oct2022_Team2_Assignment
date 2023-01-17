@@ -27,6 +27,11 @@ jobs:
         pip install pyodbc
     - name: Install Microsoft ODBC
       run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y           
+    - name: Compile and Test from Build Script
+      shell: pwsh
+      run: .\build.ps1 ci-pr $
+      env:
+        ConnectionStrings__MyConnString: "Server=localhost,1433;Initial Catalog=MyTestDb;User Id=sa;Password=MyTestPassword;"         
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
