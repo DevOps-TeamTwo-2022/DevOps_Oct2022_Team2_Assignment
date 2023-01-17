@@ -22,8 +22,7 @@ jobs:
       run: |
         pip install flake8 pytest pytest-cov
         pip install Flask
-        pip install pyodbc
-        pip install pyodbc       
+        pip install pyodbc      
     - name: Install Microsoft ODBC
       run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y  
       env:

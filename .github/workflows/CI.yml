@@ -13,8 +13,7 @@ jobs:
         env:
           SA_PASSWORD: MyTestPassword
           ACCEPT_EULA: 'Y'
-        ports:
-          - 1433:1433       
+        ports: [1433]      
     steps:
     - uses: actions/setup-python@v2
       with:
@@ -25,12 +24,9 @@ jobs:
         pip install Flask
         pip install pyodbc
     - name: Install Microsoft ODBC
-      run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y        
-    - name: Compile and Test from Build Script
-      shell: pwsh
-      run: .\build.ps1 ci-pr $
+      run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y  
       env:
-        ConnectionStrings__MyConnString: "Server=localhost,1433;Initial Catalog=MyTestDb;User Id=sa;Password=MyTestPassword;"    
+        PORT: ${{ job.services.mssql.ports[1433] }}          
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
