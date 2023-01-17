@@ -4,6 +4,12 @@
 
 --DROP DATABASE DevOps_TeamTwo_2022;
 
+/*
+DROP TABLE Internship_Student_Data;
+DROP TABLE Internship_Company_Data;
+DROP TABLE Internship_Information_Data;
+*/
+
 CREATE DATABASE DevOps_TeamTwo_2022;
 
 --=====================================================
@@ -17,6 +23,7 @@ CREATE TABLE Internship_Student_Data (
     Preference varchar(255) NOT NULL,
     Status varchar(11) NOT NULL
 );
+
 
 --DELETE FROM Internship_Student_Data WHERE StudentID='S12345670A';
 
