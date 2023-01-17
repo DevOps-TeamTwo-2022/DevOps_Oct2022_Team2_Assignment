@@ -18,8 +18,6 @@ cnxn = pyodbc.connect(
 """
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
-        SERVER=localhost; \
-            DATABASE=MyTestDb; \
             UID=sa; \
             PWD=MyTestPassword;')
 # Create a cursor from the connection
