@@ -10,20 +10,23 @@ app = Flask(__name__)
 
 # Specifying the ODBC driver, server name, database, etc. directly
 
+
+# Use this for local sql database
+"""
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
         SERVER=(localdb)\MSSQLLocalDB; \
             DATABASE=DevOps_TeamTwo_2022; \
             Trusted_Connection=yes;')
-
 """
+# use this for github action collection database
 cnxn = pyodbc.connect(
     'DRIVER={ODBC Driver 17 for SQL Server}; \
         SERVER=(localdb)\MSSQLLocalDB; \
             DATABASE=tempdb; \
             UID=sa; \
             PWD=dbatools.I0;')
-"""
+
 # Create a cursor from the connection
 cursor = cnxn.cursor()
 
