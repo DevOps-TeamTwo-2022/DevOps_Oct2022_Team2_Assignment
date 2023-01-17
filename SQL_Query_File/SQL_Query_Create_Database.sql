@@ -4,8 +4,13 @@
 
 --DROP DATABASE DevOps_TeamTwo_2022;
 
-CREATE DATABASE DevOps_TeamTwo_2022;
+/*
+DROP TABLE Internship_Student_Data;
+DROP TABLE Internship_Company_Data;
+DROP TABLE Internship_Information_Data;
+*/
 
+CREATE DATABASE DevOps_TeamTwo_2022;
 
 --=====================================================
 --=====================================================
@@ -18,6 +23,7 @@ CREATE TABLE Internship_Student_Data (
     Preference varchar(255) NOT NULL,
     Status varchar(11) NOT NULL
 );
+
 
 --DELETE FROM Internship_Student_Data WHERE StudentID='S12345670A';
 
@@ -42,6 +48,7 @@ CREATE TABLE Internship_Company_Data (
 
 INSERT INTO Internship_Company_Data (Company_Name, Job_Role, Company_Contact, Email) VALUES ('Company A', 'Software Developer','Mr A','devopsTeam2Company1');
 
+SELECT * FROM Internship_Company_Data
 --=====================================================
 --=====================================================
 --=====================================================
