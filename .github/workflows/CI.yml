@@ -6,7 +6,7 @@ on:
     
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/setup-python@v2
       with:
@@ -16,6 +16,8 @@ jobs:
         pip install flake8 pytest pytest-cov
         pip install Flask
         pip install pyodbc
+    - name: Install Microsoft ODBC
+      run: sudo ACCEPT_EULA=Y apt-get install msodbcsql18 -y        
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
