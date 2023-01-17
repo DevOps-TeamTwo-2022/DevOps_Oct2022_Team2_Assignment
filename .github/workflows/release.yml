@@ -7,6 +7,14 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: MyTestPassword
+          ACCEPT_EULA: 'Y'
+        ports:
+          - 1433:1433    
     steps:
     - uses: actions/checkout@v2
       with:
