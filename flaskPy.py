@@ -1,4 +1,4 @@
-from flask import Flask,render_template,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for
 import pyodbc
 
 ## for vscode, type python flaskPy.py in terminal to run at 5221 port
@@ -27,6 +27,7 @@ cnxn = pyodbc.connect(
             DATABASE=tempdb; \
             UID=sa; \
             PWD=dbatools.I0;',autocommit = True)
+
 
 # Create a cursor from the connection
 cursor = cnxn.cursor()
@@ -106,12 +107,29 @@ def mainFile():
     helloVar = "Hello world"
     return render_template("index.html",helloVar=helloVar)
 
-@app.route("/Match_Student")
+@app.route("/Match_Student", methods = ['GET','POST'])
 def matchFile():
-    return render_template("Match_Student.html",
+    if request.method == 'GET':
+        return render_template("Match_Student.html",
                            studentList=studentList,
                            companyList=companyList,
                            informationList=informationList)
+        
+    if request.method == 'POST':
+        cnxn = pyodbc.connect(
+            'DRIVER={ODBC Driver 17 for SQL Server}; \
+                SERVER=(localdb)\MSSQLLocalDB; \
+                    DATABASE=DevOps_TeamTwo_2022; \
+                        Trusted_Connection=yes;',autocommit = True)
+
+        testA = request.form.get("assignType", False)
+        print("This is the value!: ",testA)
+        
+        # Create a cursor from the connection
+        cursor = cnxn.cursor()
+        
+        cnxn.close()
+        return redirect(url_for("matchFile"))         
 
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
