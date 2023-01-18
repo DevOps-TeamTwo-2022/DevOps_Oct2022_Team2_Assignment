@@ -12,6 +12,23 @@
   <hr style="max-width: 500px; margin: 0px; border-top: 1px solid black;">
 </div>
 
-  <p class="important">
-    Welcome on my awesome homepage YEAHHHHHH PICKLE RICK.
+<table class="table">
+  <thead>
+      <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Preference</th>
+      <th scope="col">Status</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for students in studentList %}
+          <tr>
+              <td>{{ students.Name }}</td>
+              <td>{{ students.Preference }}</td> 
+              <td>{{ students.Status }}</td>
+          </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}

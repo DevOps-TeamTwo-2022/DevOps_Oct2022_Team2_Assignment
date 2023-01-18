@@ -32,7 +32,9 @@ cnxn = pyodbc.connect(
 # Create a cursor from the connection
 cursor = cnxn.cursor()
 
-table_List = ['Internship_Student_Data','Internship_Company_Data','Internship_Information_Data']
+table_List = ['Internship_Student_Data',
+              'Internship_Company_Data',
+              'Internship_Information_Data']
 
 toCreate = False
 
@@ -107,9 +109,10 @@ def mainFile():
 
 @app.route("/Match_Student")
 def matchFile():
-    helloVar_Match = "Hello world Match"
     return render_template("Match_Student.html",
-                           helloVar_Match=helloVar_Match)
+                           studentList=studentList,
+                           companyList=companyList,
+                           informationList=informationList)
 
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
