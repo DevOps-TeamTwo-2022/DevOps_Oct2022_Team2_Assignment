@@ -17,18 +17,34 @@
       <tr>
       <th scope="col">Name</th>
       <th scope="col">Preference</th>
+      <th scope="col">CompanyList</th>
+      <th scope="col"></th>
       <th scope="col">Status</th>
+      <th scope="col"></th>
       </tr>
   </thead>
+
+  <!-- table database retrievalstarts here ================================================-->
   <tbody>
       {% for students in studentList %}
           <tr>
               <td>{{ students.Name }}</td>
-              <td>{{ students.Preference }}</td> 
-              <td>{{ students.Status }}</td>
+              <td>{{ students.Preference }}</td>
+
+              {% if informationList|length > 0%}
+
+              {% else %}
+                <td><p>Unassigned<p><td>
+                <td><p>Unassigned<p><td>              
+              {% endif %}
+
           </tr>
+
       {% endfor %}
+
   </tbody>
+
 </table>
+  <!-- table ends here ================================================-->
 
 {% endblock %}
