@@ -2,7 +2,7 @@ name: CI for Hello World
 
 on:
   push:
-    branches: [main,dansBranch]
+    branches: [dansBranch]
     
 jobs:
   build:
@@ -24,7 +24,8 @@ jobs:
       run: |
         pip install flake8 pytest pytest-cov
         pip install Flask
-        pip install pyodbc  
+        pip install pyodbc 
+        pip install regex 
 
     - name: Checkout Own Repo
       uses: actions/checkout@v2

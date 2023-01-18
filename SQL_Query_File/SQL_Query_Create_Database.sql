@@ -10,6 +10,19 @@ DROP TABLE Internship_Company_Data;
 DROP TABLE Internship_Information_Data;
 */
 
+/*
+INSERT INTO Internship_Student_Data VALUES ('S12345670A', 
+'Student 1','Software Development','Unassigned');
+INSERT INTO Internship_Student_Data VALUES ('S12345671B', 
+'Student 2','System Development','Unassigned');
+
+INSERT INTO Internship_Company_Data (Company_Name, Job_Role, 
+Company_Contact, Email) VALUES ('Company A', 'Software Developer',
+'Mr A','devopsTeam2Company1');
+
+INSERT INTO Internship_Information_Data VALUES ('S12345670A', 1);
+*/
+
 CREATE DATABASE DevOps_TeamTwo_2022;
 
 --=====================================================
