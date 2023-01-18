@@ -12,13 +12,14 @@
   <hr style="max-width: 500px; margin: 0px; border-top: 1px solid black;">
 </div>
 
+<form action="" method = "POST">
 <table class="table">
   <thead>
       <tr>
       <th scope="col">Name</th>
       <th scope="col">Preference</th>
       <th scope="col">CompanyList</th>
-      <th scope="col" class="statusTH">Status</th>
+      <th scope="col">Status</th>
       </tr>
   </thead>
 
@@ -32,20 +33,22 @@
               {% if informationList|length > 0%}
 
               {% else %}
-                <td>    
-                  <select>        
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                <td> 
+                  <select>
+                    <option class="form-control" value="unassigned">unassigned</option>
+                    {% for companies in companyList %}        
+                      {% set theVar = companies.Company_Name %}
+                      
+                      <option class="form-control" value={{companies.CompanyID}} name="companyID" id="companyID">{{theVar}}</option>
+                    {% endfor %}
                   </select>
                 </td>
+
                 <td>
                   <select>        
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                    <option class="form-control" value="unassigned1" name="assignType" id="assignType">unassigned</option>
+                    <option class="form-control" value="Pending confirmation1" name="assignType" id="assignType">Pending confirmation</option>
+                    <option class="form-control" value="Confirmed1" name="assignType" id="assignType">Confirmed</option>
                   </select>
                 </td>        
               {% endif %}
@@ -57,6 +60,10 @@
   </tbody>
 
 </table>
+
+<button type="btnAdd" class="btn btn-primary">Submit</button>
+
+</form>
   <!-- table ends here ================================================-->
 
 {% endblock %}

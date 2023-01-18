@@ -19,6 +19,9 @@ INSERT INTO Internship_Student_Data VALUES ('S12345671B',
 INSERT INTO Internship_Company_Data (Company_Name, Job_Role, 
 Company_Contact, Email) VALUES ('Company A', 'Software Developer',
 'Mr A','devopsTeam2Company1');
+INSERT INTO Internship_Company_Data (Company_Name, Job_Role, 
+Company_Contact, Email) VALUES ('Company B', 'Software QA',
+'Ms B','devopsTeam2Company2');
 
 INSERT INTO Internship_Information_Data VALUES ('S12345670A', 1);
 */
