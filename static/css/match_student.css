@@ -5,3 +5,19 @@
 .theTitle h1{
     padding-top:1%;
 }
+
+.table {
+  margin-left:5%; 
+}
+
+th, td {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+.statusTH{
+  padding-left: 30px;
+  padding-right: 80px;
+}
