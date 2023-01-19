@@ -74,16 +74,8 @@ jobs:
       with:
         name: assetDocuments
         
-    - name: Get tag name from ref
-      shell: bash
-      run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
-      id: get_tag
-      
-    - name: Create tag in public repository
-      run: |
-       cd ${{github.workspace}}/another_public_repo
-       git tag ${{ steps.get_tag.outputs.tag }}
-       git push --tags --porcelain
+    - name: Set tag name from ref
+      run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}">>$GITHUB_ENV      
       
     - name: create release
       id: create-new-release
@@ -91,7 +83,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:
-        tag_name: ${{get_tag}}
+        tag_name: ${{env.TAG_NAME}}
         release_name: Release ${{env.RELEASE_VERSION}}
         
     - name: Archive site content
