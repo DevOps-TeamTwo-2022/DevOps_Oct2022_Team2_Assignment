@@ -73,14 +73,25 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: assetDocuments
-
+        
+    - name: Get tag name from ref
+      shell: bash
+      run: echo "::set-output name=tag::${GITHUB_REF#refs/tags/}"
+      id: get_tag
+      
+    - name: Create tag in public repository
+      run: |
+       cd ${{github.workspace}}/another_public_repo
+       git tag ${{ steps.get_tag.outputs.tag }}
+       git push --tags --porcelain
+      
     - name: create release
       id: create-new-release
       uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:
-        tag_name: ${{env.RELEASE_VERSION}}
+        tag_name: ${{ steps.get_tag.outputs.tag }}
         release_name: Release ${{env.RELEASE_VERSION}}
         
     - name: Archive site content
