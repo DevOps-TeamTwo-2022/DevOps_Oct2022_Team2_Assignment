@@ -93,9 +93,7 @@ for i in selectQuery:
         for row in records:
             informationList.append({"StudentID":row[0],
                                 "ID":row[1]})
-
-cnxn.close()
-
+            
 # Redirect http://localhost:5221/ to http://localhost:5221/main
 @app.route("/")
 def redirectToMain():
@@ -108,6 +106,7 @@ def mainFile():
     return render_template("index.html",helloVar=helloVar)
 
 @app.route("/Match_Student", methods = ['GET','POST'])
+
 def matchFile():
     if request.method == 'GET':
         return render_template("Match_Student.html",
@@ -121,9 +120,11 @@ def matchFile():
                 SERVER=(localdb)\MSSQLLocalDB; \
                     DATABASE=DevOps_TeamTwo_2022; \
                         Trusted_Connection=yes;',autocommit = True)
-
-        testA = request.form.get("assignType", False)
-        print("This is the value!: ",testA)
+        
+        selectAssg = request.form.get('assignmentSelected')
+        selectComp = request.form.get('companySelected')
+        
+        return(str(selectComp)) # just to see what select is
         
         # Create a cursor from the connection
         cursor = cnxn.cursor()

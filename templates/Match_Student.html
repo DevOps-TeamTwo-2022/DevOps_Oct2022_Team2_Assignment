@@ -13,6 +13,7 @@
 </div>
 
 <form action="" method = "POST">
+
 <table class="table">
   <thead>
       <tr>
@@ -34,21 +35,22 @@
 
               {% else %}
                 <td> 
-                  <select>
-                    <option class="form-control" value="unassigned">unassigned</option>
+                  <select name="companySelected" class="form-control">
+                    <option>unassigned</option>
                     {% for companies in companyList %}        
                       {% set theVar = companies.Company_Name %}
+                      {% set theCompID = companies.ID%}
                       
-                      <option class="form-control" value={{companies.CompanyID}} name="companyID" id="companyID">{{theVar}}</option>
+                      <option class="form-control" value='{{theCompID}}'>{{theVar}}</option>
                     {% endfor %}
                   </select>
                 </td>
 
                 <td>
-                  <select>        
-                    <option class="form-control" value="unassigned1" name="assignType" id="assignType">unassigned</option>
-                    <option class="form-control" value="Pending confirmation1" name="assignType" id="assignType">Pending confirmation</option>
-                    <option class="form-control" value="Confirmed1" name="assignType" id="assignType">Confirmed</option>
+                  <select name="assignmentSelected" class="form-control">        
+                    <option class="form-control" value="unassigned" name="assignType" id="assignType">unassigned</option>
+                    <option class="form-control" value="Pending confirmation" name="assignType" id="assignType">Pending confirmation</option>
+                    <option class="form-control" value="Confirmed" name="assignType" id="assignType">Confirmed</option>
                   </select>
                 </td>        
               {% endif %}
