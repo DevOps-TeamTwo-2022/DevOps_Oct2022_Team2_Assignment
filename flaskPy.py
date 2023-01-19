@@ -5,6 +5,7 @@ import pyodbc
 # 1) pytest tests/flaskTest.py to run test script
 # python -m pytest tests/flaskTest.py if 1) doesn't work
 # pytest -s prints console
+# test comment for tags
 
 app = Flask(__name__)
 
