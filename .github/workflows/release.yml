@@ -74,8 +74,10 @@ jobs:
       with:
         name: assetDocuments
         
-    - name: Set tag name from ref
-      run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}">>$GITHUB_ENV      
+    - name: Get App version code_Frm DNS Cont
+      id: version_Frm_DNS_Cont
+      run: |
+        echo "::set-output name=commits::$(git rev-list --count HEAD)" 
       
     - name: create release
       id: create-new-release
@@ -83,7 +85,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:
-        tag_name: ${{env.TAG_NAME}}
+        tag_name: ${{steps.version_Frm_DNS_Cont.outputs.commits}}
         release_name: Release ${{env.RELEASE_VERSION}}
         
     - name: Archive site content
