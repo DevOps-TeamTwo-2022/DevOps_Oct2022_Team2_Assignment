@@ -48,7 +48,7 @@
                               {% set compJob = companies.Job_Role %}
                               {% set theCompID = companies.ID %}
                             
-                              <option class="form-control" value='{{theCompID}}'>{{compJob}}</option>
+                              <option class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</option>
                               {% endif %}                           
                           {% endfor %}
                       {% endif %}    
@@ -61,7 +61,7 @@
                         {% set compJob = companies.Job_Role %}
                         {% set theCompID = companies.ID %}
                     
-                        <option class="form-control" value='{{theCompID}}'>{{compJob}}</option>
+                        <option class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</option>
                           
                     {% endfor %}
 
@@ -92,7 +92,7 @@
                       {% set compJob = companies.Job_Role %}
                       {% set theCompID = companies.ID %}
                       
-                      <option class="form-control" value='{{theCompID}}'>{{compJob}}</option>
+                      <option class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</option>
                     {% endfor %}
                   </select>
                 </td>

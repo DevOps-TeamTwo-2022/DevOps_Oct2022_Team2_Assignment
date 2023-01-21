@@ -73,11 +73,6 @@ jobs:
       uses: actions/download-artifact@v2
       with:
         name: assetDocuments
-        
-    - name: Get App version code_Frm DNS Cont
-      id: version_Frm_DNS_Cont
-      run: |
-        echo "::set-output name=commits::$(git rev-list --count HEAD)" 
       
     - name: create release
       id: create-new-release
@@ -85,7 +80,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       with:
-        tag_name: ${{steps.version_Frm_DNS_Cont.outputs.commits}}
+        tag_name: ${{env.RELEASE_VERSION}}
         release_name: Release ${{env.RELEASE_VERSION}}
         
     - name: Archive site content
