@@ -29,7 +29,6 @@ def checkDatabase():
                 DATABASE=tempdb; \
                 UID=sa; \
                 PWD=dbatools.I0;',autocommit = True)
-    
 
     # Create a cursor from the connection
     cursor = cnxn.cursor()
@@ -194,10 +193,7 @@ def matchFile():
                         if aList3[i] == l[StudentID]:
                             cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", "Unassigned", aList3[i])
                             cursor.execute("DELETE FROM dbo.Internship_Information_Data WHERE StudentID = ?", aList3[i])                         
-                        
-                        
-                                           
-        
+                               
         cnxn.close()
                         
         return redirect(url_for("matchFile")) 
