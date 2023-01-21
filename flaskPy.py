@@ -14,8 +14,8 @@ app = Flask(__name__)
 
 def checkDatabase():
     # Use this for local sql database
-
-    cnxn = pyodbc.connect(
+    """
+    cnxn = pyodbc.connect(    
         'DRIVER={ODBC Driver 17 for SQL Server}; \
             SERVER=(localdb)\MSSQLLocalDB; \
                 DATABASE=DevOps_TeamTwo_2022; \
@@ -29,7 +29,7 @@ def checkDatabase():
                 DATABASE=tempdb; \
                 UID=sa; \
                 PWD=dbatools.I0;',autocommit = True)
-    """
+    
 
     # Create a cursor from the connection
     cursor = cnxn.cursor()
@@ -132,7 +132,7 @@ def matchFile():
                            informationList=informationList)
         
     if request.method == 'POST':
-        
+        """
         cnxn = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server}; \
                 SERVER=(localdb)\MSSQLLocalDB; \
@@ -147,7 +147,7 @@ def matchFile():
                     DATABASE=tempdb; \
                     UID=sa; \
                     PWD=dbatools.I0;',autocommit = True)
-        """
+
         
         studentList,companyList,informationList = checkDatabase()
         
@@ -166,14 +166,7 @@ def matchFile():
             if aList1[i] != "Unassigned":
                 
                 found = False
-                """
-                for StudentID in informationList.keys():
-                    if aList3[i] == informationList[StudentID]:
-                        found = True
-                        for StudentID,Status in studentList.keys():
-                            if aList3[i] == studentList[StudentID] and studentList[Status] != aList2[i]:
-                                cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])            
-                """
+
                 for j in informationList:
                     for StudentID in j.keys():
                         if aList3[i] == j[StudentID]:
@@ -209,59 +202,6 @@ def matchFile():
                         
         return redirect(url_for("matchFile")) 
     
-        """
-        if request.form.get('companySelected[]') != "Unassigned":
-                             
-            #Status = str(request.form.get('assignmentSelected'))
-            #ID = int(request.form.get('companySelected'))
-            
-            aList1 = request.form.getlist('companySelected[]')
-            aList2 = request.form.getlist('assignmentSelected[]')
-            
-            app.logger.info('testing companySelected: ', aList1)
-            app.logger.info('testing assignmentSelected: ', aList2)
-            
-            StudentID = str(request.form.get('studID'))
-            
-            app.logger.info('testing info log: ', StudentID)
-            
-            for i in aList2:
-                if i == "Unassigned":
-                    aList2[i] == "Pending confirmation"
-                    
-            #if Status == "Unassigned":
-            #    Status = "Pending confirmation"
-
-            # Create a cursor from the connection
-            cursor = cnxn.cursor()   
-            
-            #local db
-            
-            for i in aList1:
-            
-            cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", Status, StudentID)
-            cursor.execute("INSERT INTO dbo.Internship_Information_Data (StudentID,ID) VALUES (?,?)", StudentID, ID)        
-                
-            cnxn.close()
-            
-            return redirect(url_for("matchFile")) 
-        
-        else:
-            
-            StudentID = str(request.form.get('studID'))
-            Status = "Unassigned"
-            
-            # Create a cursor from the connection
-            cursor = cnxn.cursor()   
-            
-            #local db
-            cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", Status, StudentID)
-            cursor.execute("DELETE FROM dbo.Internship_Information_Data WHERE StudentID = ?", StudentID)      
-                
-            cnxn.close()
-                        
-            return redirect(url_for("matchFile"))         
-            """
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
       
