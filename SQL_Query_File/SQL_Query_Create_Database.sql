@@ -15,6 +15,8 @@ INSERT INTO Internship_Student_Data VALUES ('S12345670A',
 'Student 1','Software Development','Unassigned');
 INSERT INTO Internship_Student_Data VALUES ('S12345671B', 
 'Student 2','System Development','Unassigned');
+INSERT INTO Internship_Student_Data VALUES ('S12345672C', 
+'Student 3','Software Development','Unassigned');
 
 INSERT INTO Internship_Company_Data (Company_Name, Job_Role, 
 Company_Contact, Email) VALUES ('Company A', 'Software Developer',
@@ -37,7 +39,7 @@ CREATE TABLE Internship_Student_Data (
     StudentID varchar(10) NOT NULL PRIMARY KEY CLUSTERED,
     Name varchar(255) NOT NULL,
     Preference varchar(255) NOT NULL,
-    Status varchar(11) NOT NULL
+    Status varchar(255) NOT NULL
 );
 
 
@@ -85,3 +87,5 @@ INSERT INTO Internship_Information_Data VALUES ('S12345670A', 1);
 --=====================================================
 
 SELECT * FROM Internship_Information_Data;
+SELECT * FROM Internship_Student_Data;
+SELECT * FROM Internship_Company_Data;
