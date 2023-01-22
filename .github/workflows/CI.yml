@@ -33,7 +33,13 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: DevOps-TeamTwo-2022/DevOps_Oct2022_Team2_Assignment
-   
+        token: ${{ secrets.GITHUB_TOKEN }}
+        path: ${{ env.DEVOPS_DIR }}
+
+    - name: Run python file for webdriver chrome
+      run: python ${{ env.DEVOPS_DIR }}/flaskPy.py
+      shell: sh
+
     - name: list our contents
       run: |
         ls

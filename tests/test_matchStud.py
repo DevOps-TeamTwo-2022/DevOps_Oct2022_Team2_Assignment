@@ -8,11 +8,12 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 def test_scenario1(): #route to match student via navbar
-    driver = webdriver.Chrome \
-        (service=ChromeService \
-            (executable_path=ChromeDriverManager().install()))
 
-    driver.get("http://127.0.0.1:5221")
+    service = ChromeService(executable_path=ChromeDriverManager().install())
+    
+    driver = webdriver.Chrome(service=service)
+
+    driver.get("http://localhost:5221")
     
     time.sleep(1)
 
@@ -50,7 +51,7 @@ def test_scenario2(): #if no changes made in table, upon submitting/POST must di
             (executable_path=ChromeDriverManager() \
                 .install()))
 
-    driver.get("http://127.0.0.1:5221/Match_Student")
+    driver.get("http://localhost:5221/Match_Student")
     
     time.sleep(1)
     
@@ -83,15 +84,12 @@ def test_scenario3(): #if companyList has selection, table updates
             (executable_path=ChromeDriverManager() \
                 .install()))
 
-    driver.get("http://127.0.0.1:5221/Match_Student")
+    driver.get("http://localhost:5221/Match_Student")
     
     time.sleep(1)
     
     title = driver.title
     assert title == "Match Students - My Webpage"
     
-    time.sleep(1)
-    
-            
-           
+    time.sleep(1)      
         
