@@ -40,7 +40,6 @@ jobs:
 
     - name: test with pytest
       run: |
-        python flaskPy.py
         python -m pytest --import-mode=append tests/ --junitxml=report.xml
     
     - if: ${{ failure() }}

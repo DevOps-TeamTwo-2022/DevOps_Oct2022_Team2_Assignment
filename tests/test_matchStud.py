@@ -11,12 +11,11 @@ import pytest
 import time
 
 def test_scenario1(): #route to match student via navbar
-    
     driver = webdriver.Chrome \
         (service=ChromeService \
             (executable_path=ChromeDriverManager() \
-                .install())) 
-
+                .install()))
+        
     driver.get("http://localhost:5221")
     
     time.sleep(1)
