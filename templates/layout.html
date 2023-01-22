@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     {% block head %}
@@ -7,8 +7,8 @@
     <title>{% block title %}{% endblock %} - My Webpage</title>  
 
     <ul class="sidenav">
-      <li><a href="{{url_for('matchFile')}}">Match Students</a></li>
-      <li><a href="{{url_for('mainFile')}}">Main</a></li>
+      <li class = "navigationbar__item"><a href="{{url_for('matchFile')}}">Match Students</a></li>
+      <li class = "navigationbar__item"><a href="{{url_for('mainFile')}}">Main</a></li>
     </ul>
 
     {% endblock %}
