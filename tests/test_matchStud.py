@@ -43,3 +43,25 @@ def test_scenario1(): #route to match student via navbar
     time.sleep(1)
 
     driver.quit()
+
+def test_scenario2(): #if no changes made in table, upon submitting/POST must display 0 changes made
+    driver = webdriver.Chrome \
+        (service=ChromeService \
+            (executable_path=ChromeDriverManager() \
+                .install()))
+
+    driver.get("http://localhost:5221/Match_Student")
+    
+    time.sleep(1)
+    
+    title = driver.title
+    assert title == "Match Students - My Webpage"
+    
+    time.sleep(1)
+    
+    driver.find_element(By.CLASS_NAME,"btn")
+    
+    
+    
+        
+        

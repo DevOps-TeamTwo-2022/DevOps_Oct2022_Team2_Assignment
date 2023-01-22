@@ -32,7 +32,7 @@ def checkDatabase():
                 DATABASE=tempdb; \
                 UID=sa; \
                 PWD=dbatools.I0;',autocommit = True)
-
+    
     # Create a cursor from the connection
     cursor = cnxn.cursor()
 
@@ -168,7 +168,7 @@ def matchFile():
                     DATABASE=tempdb; \
                     UID=sa; \
                     PWD=dbatools.I0;',autocommit = True)
-
+       
         
         studentList,companyList,informationList = checkDatabase()
         

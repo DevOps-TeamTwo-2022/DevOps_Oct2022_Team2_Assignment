@@ -25,7 +25,10 @@ jobs:
         pip install flake8 pytest pytest-cov
         pip install Flask
         pip install pyodbc      
-
+        pip install regex
+        pip install selenium
+        pip install webdriver-manager 
+        
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
