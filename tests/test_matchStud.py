@@ -4,14 +4,18 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.chrome.options import Options
+import pytest
 
 import time
 
 def test_scenario1(): #route to match student via navbar
-
-    service = ChromeService(executable_path=ChromeDriverManager().install())
     
-    driver = webdriver.Chrome(service=service)
+    driver = webdriver.Chrome \
+        (service=ChromeService \
+            (executable_path=ChromeDriverManager() \
+                .install())) 
 
     driver.get("http://localhost:5221")
     
@@ -93,5 +97,9 @@ def test_scenario3(): #if companyList has selection, table updates
     
     time.sleep(1)
     
-          
+    #select = Select(driver.find_element('companySelected[]'))   
+    
+    #for index in range(len(select.options)):
+    #    select = Select(driver.find_element('companySelected[]'))
+    #    select.select_by_index(index)           
         

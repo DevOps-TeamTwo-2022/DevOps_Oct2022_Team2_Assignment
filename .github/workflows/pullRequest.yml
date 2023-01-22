@@ -38,12 +38,9 @@ jobs:
       run: |
         ls
 
-    - name: execute py script # run the run.py to get the latest data
-      run: |
-        python flaskPy.py   
-
     - name: test with pytest
       run: |
+        python flaskPy.py
         python -m pytest --import-mode=append tests/ --junitxml=report.xml
     
     - if: ${{ failure() }}

@@ -36,14 +36,11 @@ jobs:
          
     - name: list our contents
       run: |
-        ls
-
-    - name: execute py script # run the run.py to get the latest data
-      run: |
-        python flaskPy.py   
+        ls  
 
     - name: test with pytest
       run: |
+        python flaskPy.py
         python -m pytest --import-mode=append tests/ --junitxml=report.xml
   
     - if: ${{ failure() }}
