@@ -91,5 +91,7 @@ def test_scenario3(): #if companyList has selection, table updates
     title = driver.title
     assert title == "Match Students - My Webpage"
     
-    time.sleep(1)      
+    time.sleep(1)
+    
+          
         
