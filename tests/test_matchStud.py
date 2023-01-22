@@ -12,7 +12,7 @@ def test_scenario1(): #route to match student via navbar
         (service=ChromeService \
             (executable_path=ChromeDriverManager().install()))
 
-    driver.get("http://localhost:5221")
+    driver.get("http://127.0.0.1:5221")
     
     time.sleep(1)
 
@@ -40,7 +40,7 @@ def test_scenario1(): #route to match student via navbar
     title = driver.title
     assert title == "Match Students - My Webpage"
     
-    time.sleep(1)
+    time.sleep(3)
 
     driver.quit()
 
@@ -50,7 +50,7 @@ def test_scenario2(): #if no changes made in table, upon submitting/POST must di
             (executable_path=ChromeDriverManager() \
                 .install()))
 
-    driver.get("http://localhost:5221/Match_Student")
+    driver.get("http://127.0.0.1:5221/Match_Student")
     
     time.sleep(1)
     
@@ -59,9 +59,39 @@ def test_scenario2(): #if no changes made in table, upon submitting/POST must di
     
     time.sleep(1)
     
-    driver.find_element(By.CLASS_NAME,"btn")
+    driver.find_element(By.CLASS_NAME,"btn").click()
     
+    time.sleep(1)
     
+    sessionVar_Result = driver.find_element(By.CLASS_NAME,"sessionVars")
     
-        
+    time.sleep(1)
+    
+    sesVar_Value = sessionVar_Result.text
+    
+    time.sleep(1)
+    
+    assert sesVar_Value == "0 tables updated"
+    
+    time.sleep(3)
+
+    driver.quit()    
+    
+def test_scenario3(): #if companyList has selection, table updates
+    driver = webdriver.Chrome \
+        (service=ChromeService \
+            (executable_path=ChromeDriverManager() \
+                .install()))
+
+    driver.get("http://127.0.0.1:5221/Match_Student")
+    
+    time.sleep(1)
+    
+    title = driver.title
+    assert title == "Match Students - My Webpage"
+    
+    time.sleep(1)
+    
+            
+           
         
