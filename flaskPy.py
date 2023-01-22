@@ -17,7 +17,7 @@ app.secret_key = 'DevOps_Oct2022_Team2_Assignment'
 
 def checkDatabase():
     # Use this for local sql database
-    
+    """
     cnxn = pyodbc.connect(    
         'DRIVER={ODBC Driver 17 for SQL Server}; \
             SERVER=(localdb)\MSSQLLocalDB; \
@@ -32,7 +32,7 @@ def checkDatabase():
                 DATABASE=tempdb; \
                 UID=sa; \
                 PWD=dbatools.I0;',autocommit = True)
-    """
+    
     # Create a cursor from the connection
     cursor = cnxn.cursor()
 
@@ -153,7 +153,7 @@ def matchFile():
                            informationList=informationList)
         
     if request.method == 'POST':
-        
+        """
         cnxn = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server}; \
                 SERVER=(localdb)\MSSQLLocalDB; \
@@ -168,7 +168,7 @@ def matchFile():
                     DATABASE=tempdb; \
                     UID=sa; \
                     PWD=dbatools.I0;',autocommit = True)
-        """
+        
         
         studentList,companyList,informationList = checkDatabase()
         
