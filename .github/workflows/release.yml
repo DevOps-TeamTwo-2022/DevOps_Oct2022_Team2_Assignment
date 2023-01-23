@@ -26,19 +26,26 @@ jobs:
         pip install Flask
         pip install pyodbc
         pip install regex
-                  
+        pip install selenium
+        pip install webdriver-manager 
+
     - name: Checkout Own Repo
       uses: actions/checkout@v2
       with:
         repository: DevOps-TeamTwo-2022/DevOps_Oct2022_Team2_Assignment
-   
+         
     - name: list our contents
       run: |
-        ls
-  
+        ls  
+
     - name: test with pytest
       run: |
+        start python flaskPy.py
         python -m pytest --import-mode=append tests/ --junitxml=report.xml
+
+    - name: stop python file running in dns cont
+      run: |
+        taskkill /IM python.exe   
   
     - if: ${{ failure() }}
       uses: JasonEtco/create-an-issue@v2

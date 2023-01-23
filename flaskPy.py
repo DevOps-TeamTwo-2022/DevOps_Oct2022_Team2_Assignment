@@ -1,4 +1,5 @@
 from flask import Flask,session,render_template,request,redirect,url_for
+import os
 import pyodbc
 import logging
 
@@ -9,6 +10,8 @@ import logging
 # test comment for tags 2
 
 app = Flask(__name__)
+
+app.secret_key = 'DevOps_Oct2022_Team2_Assignment'
 
 # Specifying the ODBC driver, server name, database, etc. directly
 
@@ -121,7 +124,26 @@ def mainFile():
 @app.route("/Match_Student", methods = ['GET','POST'])
 
 def matchFile():
+    
+    #session.clear()
+    
+    if session.get('shown') == None:
+        session['shown'] = 0
+        
+    elif session.get('update') == None:
+        session['update'] = ""    
+
+    elif session.get('updateNo') == None:
+        session['updateNo'] = ""
+            
     if request.method == 'GET':
+        
+        if session['shown'] == 0:
+            session['update'] = ""
+            session['updateNo'] = ""
+        
+        elif session['shown'] == 1:
+            session['shown'] = 0
         
         studentList,companyList,informationList = checkDatabase()
         
@@ -146,7 +168,7 @@ def matchFile():
                     DATABASE=tempdb; \
                     UID=sa; \
                     PWD=dbatools.I0;',autocommit = True)
-
+        
         
         studentList,companyList,informationList = checkDatabase()
         
@@ -154,48 +176,99 @@ def matchFile():
         aList2 = request.form.getlist('assignmentSelected[]')
         aList3 = request.form.getlist('studentSelected[]')
         
-        app.logger.info('testing info log companySelected: ', aList1)
-        app.logger.info('testing info log assignmentSelected: ', aList2)
-        app.logger.info('testing info log studentSelected: ', aList3)
+        #app.logger.info('testing info log companySelected: ', aList1)
         
         cursor = cnxn.cursor()
+        
+        tableUpdatedOccured = False
+        
+        tempCountExecutes = 0
+        
+        a = []
+        b = []
+        d = []
+        e = []
+        
+        for m in studentList:
+            a.append([m.get(k) for k in ["StudentID"]])
+            b.append([m.get(l) for l in ["Status"]])       
+        
+        for j in informationList:
+            d.append([j.get(n) for n in ["StudentID"]])
+            e.append([j.get(n) for n in ["ID"]])
+            
+        a = [item for sublist in a for item in sublist]
+        b = [item for sublist in b for item in sublist]
+        d = [item for sublist in d for item in sublist] 
+        e = [str(item) for sublist in e for item in sublist]                   
         
         for i in range(len(aList1)):
             
             if aList1[i] != "Unassigned":
                 
                 found = False
-
-                for j in informationList:
-                    for StudentID in j.keys():
-                        if aList3[i] == j[StudentID]:
-                            found = True
-                            for k in studentList:
-                                for StudentID in k.keys():
-                                    if aList3[i] == k[StudentID]:
-                                        cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])   
+                f = None
                 
+                #app.logger.info('d value here', d) 
+                    
+                if aList3[i] in d:
+                    
+                    found = True
+                    f = d.index(aList3[i])
+                    
+                    if aList1[i] != e[f]: 
+                        tableUpdatedOccured = True
+                        tempCountExecutes = tempCountExecutes + 1                        
+                        cursor.execute("UPDATE dbo.Internship_Information_Data SET ID = ? WHERE StudentID = ?", aList1[i], aList3[i])                        
+                    
+                    f = a.index(aList3[i])
+                    f = b[f]
+                    
+                    if aList2[i] != f:
+                        if aList2[i] == "Unassigned":
+                            tableUpdatedOccured = True
+                            tempCountExecutes = tempCountExecutes + 1                            
+                            cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])
+                            cursor.execute("DELETE FROM dbo.Internship_Information_Data WHERE StudentID = ?", aList3[i])   
+                        else:
+                            tableUpdatedOccured = True
+                            tempCountExecutes = tempCountExecutes + 1                                
+                            cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])        
+                            
                 if found == False:
                     if aList2[i] == "Unassigned":
-                        app.logger.info('HOW MANY EXECUTIONS:')
                         aList2[i] = "Pending confirmation"
+                        tableUpdatedOccured = True
+                        tempCountExecutes = tempCountExecutes + 1
                         cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])
                         cursor.execute("INSERT INTO dbo.Internship_Information_Data (StudentID,ID) VALUES (?,?)", aList3[i], aList1[i])
                     else:
-                        app.logger.info('HOW MANY EXECUTIONS else:')   
+                        tableUpdatedOccured = True
+                        tempCountExecutes = tempCountExecutes + 1   
                         cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])
                         cursor.execute("INSERT INTO dbo.Internship_Information_Data (StudentID,ID) VALUES (?,?)", aList3[i], aList1[i]) 
             
             elif aList1[i] == "Unassigned":
-                app.logger.info('testing info log: ', "step1")
                 for l in informationList:
                     for StudentID in l.keys():
                         if aList3[i] == l[StudentID]:
+                            tableUpdatedOccured = True
+                            tempCountExecutes = tempCountExecutes + 1
                             cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", "Unassigned", aList3[i])
                             cursor.execute("DELETE FROM dbo.Internship_Information_Data WHERE StudentID = ?", aList3[i])                         
                                
         cnxn.close()
-                        
+        
+        if tableUpdatedOccured == False:
+            session['updateNo'] = tempCountExecutes
+            session['update'] = "tables updated"
+            session['shown'] = 1
+            
+        elif tableUpdatedOccured == True:
+            session['updateNo'] = tempCountExecutes
+            session['update'] = "tables updated"
+            session['shown'] = 1                
+                    
         return redirect(url_for("matchFile")) 
     
 if __name__ == '__main__':
