@@ -40,8 +40,13 @@ jobs:
 
     - name: test with pytest
       run: |
+        start python flaskPy.py
         python -m pytest --import-mode=append tests/
-   
+
+    - name: stop python file running in dns cont
+      run: |
+        taskkill /IM python.exe 
+
     - if: ${{ failure() }}
       uses: JasonEtco/create-an-issue@v2
       env:
