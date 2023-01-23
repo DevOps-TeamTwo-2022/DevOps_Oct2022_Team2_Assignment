@@ -36,7 +36,7 @@
               
               {% if informationList|length > 0 %}
                 <td> 
-                  <select name="companySelected[]" class="form-control">
+                  <select name="companySelected[]" id="companySelected" class="form-control">
 
                     {% for information in informationList %}
                       {% if information.StudentID == studentVar %}
@@ -70,7 +70,7 @@
                 </td>
 
               <td>
-                <select name="assignmentSelected[]" class="form-control">
+                <select name="assignmentSelected[]" id="assignmentSelected" class="form-control">
                   {% set listOfAssignTypes = ["Unassigned","Pending confirmation","Confirmed"] %}
                   {% set statusStud = students.Status %}
                   <option class="form-control" value="{{statusStud}}" name="assignType" id="assignType">{{statusStud}}</option>
@@ -86,7 +86,7 @@
                 
               {% else %}
                 <td> 
-                  <select name="companySelected[]" class="form-control">
+                  <select name="companySelected[]" id="companySelected" class="form-control">
                     <option class="form-control" value='Unassigned'>Unassigned</option>
                     {% for companies in companyList %}        
                       {% set theVar = companies.Company_Name %}
@@ -99,7 +99,7 @@
                 </td>
 
                 <td>
-                  <select name="assignmentSelected[]" class="form-control">        
+                  <select name="assignmentSelected[]" id="assignmentSelected" class="form-control">        
                     <option class="form-control" value="Unassigned" name="assignType" id="assignType">Unassigned</option>
                     <option class="form-control" value="Pending confirmation" name="assignType" id="assignType">Pending confirmation</option>
                     <option class="form-control" value="Confirmed" name="assignType" id="assignType">Confirmed</option>
