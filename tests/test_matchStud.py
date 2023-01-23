@@ -6,6 +6,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
 
 import pytest
 import time
@@ -306,11 +307,29 @@ def test_scenario6(): #if companyList has selection, change status to confirmed
 
 def recursiveMatchStud():
     
-    driver = webdriver.Chrome \
-        (service=ChromeService \
-            (executable_path=ChromeDriverManager() \
-                .install()))
+    #driver = webdriver.Chrome \
+    #    (service=ChromeService \
+    #        (executable_path=ChromeDriverManager() \
+    #            .install()))
+    
+    chrome_service = Service(ChromeDriverManager().install()) 
+    
+    chrome_options = Options()
+    options = [
+        "--headless",
+        "--disable-gpu",
+        "--window-size=1920,1200",
+        "--ignore-certificate-errors",
+        "--disable-extensions",
+        "--no-sandbox",
+        "--disable-dev-shm-usage"
+    ]       
 
+    for option in options:
+        chrome_options.add_argument(option)
+
+    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    
     driver.get("http://localhost:5221/Match_Student")
     
     time.sleep(1)
