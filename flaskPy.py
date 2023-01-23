@@ -54,13 +54,19 @@ def checkDatabase():
                 CREATE TABLE Internship_Company_Data (ID INT IDENTITY(1,1) NOT NULL PRIMARY KEY CLUSTERED,Company_Name varchar(255) NOT NULL,Job_Role varchar(255) NOT NULL,Company_Contact varchar(255) NOT NULL,Email varchar(255) NOT NULL); \
                 CREATE TABLE Internship_Information_Data (StudentID varchar(10) not null primary key foreign key references Internship_Student_Data(StudentID),ID INT not null foreign key references Internship_Company_Data(ID));"          
 
+    insertTableQuery = "INSERT INTO Internship_Student_Data VALUES ('S12345670A', 'Student 1','Software Development','Unassigned'); \
+        INSERT INTO Internship_Company_Data (Company_Name, Job_Role, Company_Contact, Email) VALUES ('Company A', 'Software Developer','Mr A','devopsTeam2Company1');"
+    
     if toCreate == True:
         
-        createTableQuery = filter(None, createTableQuery.split(';'))  
+        createTableQuery = filter(None, createTableQuery.split(';'))
+        insertTableQuery = filter(None, insertTableQuery.split(';'))    
         
         for i in createTableQuery:
-            my_data_2 = cursor.execute(i.strip() + ';')    
-
+            cursor.execute(i.strip() + ';')
+        for j in insertTableQuery:
+            cursor.execute(j.strip() + ';')    
+                
     selectQuery = "SELECT * FROM Internship_Student_Data; \
         SELECT * FROM Internship_Company_Data; \
             SELECT * FROM Internship_Information_Data;" 
