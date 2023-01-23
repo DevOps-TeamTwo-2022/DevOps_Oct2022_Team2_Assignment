@@ -77,6 +77,10 @@ def test_scenario3(): #if companyList has selection, table updates
     
     driver=recursiveMatchStud()
     
+    #WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.ID, '[id=\\"username\\"]')))
+    
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
+    
     select = Select(driver.find_element(By.NAME,'companySelected[]'))   
 
     theOptions = select.options    
@@ -92,6 +96,8 @@ def test_scenario3(): #if companyList has selection, table updates
     driver.find_element(By.CLASS_NAME,"btn").click()
     
     time.sleep(1)
+    
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
     
     sessionVar_Result = driver.find_element(By.CLASS_NAME,"sessionVars")
     
@@ -117,6 +123,8 @@ def test_scenario4(): #if companyList has selection, unassign the selection,tabl
     
     driver=recursiveMatchStud()
     
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
+    
     select = Select(driver.find_element(By.NAME,'companySelected[]'))   
  
     theOptions = select.options    
@@ -132,6 +140,8 @@ def test_scenario4(): #if companyList has selection, unassign the selection,tabl
     driver.find_element(By.CLASS_NAME,"btn").click()
     
     time.sleep(1)
+    
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
     
     sessionVar_Result = driver.find_element(By.CLASS_NAME,"sessionVars")
     
@@ -156,6 +166,8 @@ def test_scenario5(): #if status has selection, table doesnt update
     
     driver=recursiveMatchStud()
     
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'assignmentSelected[]')))
+    
     select = Select(driver.find_element(By.NAME,'assignmentSelected[]'))   
 
     theOptions = select.options    
@@ -171,6 +183,8 @@ def test_scenario5(): #if status has selection, table doesnt update
     driver.find_element(By.CLASS_NAME,"btn").click()
     
     time.sleep(1)
+    
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
     
     sessionVar_Result = driver.find_element(By.CLASS_NAME,"sessionVars")
     
@@ -195,6 +209,8 @@ def test_scenario6(): #if companyList has selection, change status to confirmed
     
     driver=recursiveMatchStud()
     
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
+    
     select = Select(driver.find_element(By.NAME,'companySelected[]'))   
 
     theOptions = select.options    
@@ -210,6 +226,8 @@ def test_scenario6(): #if companyList has selection, change status to confirmed
     driver.find_element(By.CLASS_NAME,"btn").click()
     
     time.sleep(1)
+    
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
     
     sessionVar_Result = driver.find_element(By.CLASS_NAME,"sessionVars")
     
@@ -242,6 +260,8 @@ def test_scenario6(): #if companyList has selection, change status to confirmed
     
     driver.find_element(By.CLASS_NAME,"btn").click()
     
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
+    
     time.sleep(2)
     
     sessionVar_Result = driver.find_element(By.CLASS_NAME,"sessionVars")
@@ -270,6 +290,8 @@ def test_scenario6(): #if companyList has selection, change status to confirmed
     driver.find_element(By.CLASS_NAME,"btn").click()        
 
     time.sleep(2)
+    
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.NAME,'companySelected[]')))
 
     select = Select(driver.find_element(By.NAME,'assignmentSelected[]'))
     
