@@ -33,6 +33,7 @@ def checkDatabase():
                 UID=sa; \
                 PWD=dbatools.I0;',autocommit = True)
     
+    
     # Create a cursor from the connection
     cursor = cnxn.cursor()
 
