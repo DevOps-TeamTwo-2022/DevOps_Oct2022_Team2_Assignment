@@ -30,8 +30,7 @@ def checkDatabase():
         'DRIVER={ODBC Driver 17 for SQL Server}; \
             SERVER=(localdb)\MSSQLLocalDB; \
                 DATABASE=tempdb; \
-                UID=sa; \
-                PWD=dbatools.I0;',autocommit = True)
+                Trusted_Connection=yes;',autocommit = True)
     
     
     # Create a cursor from the connection
@@ -173,8 +172,7 @@ def matchFile():
             'DRIVER={ODBC Driver 17 for SQL Server}; \
                 SERVER=(localdb)\MSSQLLocalDB; \
                     DATABASE=tempdb; \
-                    UID=sa; \
-                    PWD=dbatools.I0;',autocommit = True)
+                    Trusted_Connection=yes;',autocommit = True)
         
         
         studentList,companyList,informationList = checkDatabase()
