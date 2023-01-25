@@ -54,6 +54,12 @@ def checkDatabase():
                 CREATE TABLE Internship_Information_Data (StudentID varchar(10) not null primary key foreign key references Internship_Student_Data(StudentID),ID INT not null foreign key references Internship_Company_Data(ID));"          
 
     insertTableQuery = "INSERT INTO Internship_Student_Data VALUES ('S12345670A', 'Student 1','Software Development','Unassigned'); \
+        INSERT INTO Internship_Student_Data VALUES ('S12345671B', 'Student 2','System Development','Unassigned'); \
+            INSERT INTO Internship_Student_Data VALUES ('S12345672C', 'Student 3','Software Engineering, Development','Unassigned'); \
+                INSERT INTO Internship_Student_Data VALUES ('S12345673D', 'Student 4','IOS and Android Development','Unassigned'); \
+                    INSERT INTO Internship_Student_Data VALUES ('S12345674E', 'Student 5','Documents, QA Testing and Development','Unassigned'); \
+                        INSERT INTO Internship_Student_Data VALUES ('S12345675F', 'Student 6','Software Engineering, Development','Unassigned'); \
+                            INSERT INTO Internship_Student_Data VALUES ('S12345676G', 'Student 7','IOS and Android Development','Unassigned'); \
         INSERT INTO Internship_Company_Data (Company_Name, Job_Role, Company_Contact, Email) VALUES ('Company A', 'Software Developer','Mr A','devopsTeam2Company1');"
     
     if toCreate == True:
