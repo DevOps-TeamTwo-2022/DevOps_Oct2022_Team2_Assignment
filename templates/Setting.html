@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Settings{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/match_student.css') }}">
+  {{ super() }}
+{% endblock %}
+{% block content %}
+
+
+<div class="theTitle">
+  <h1>Settings</h1>
+  <hr style="max-width: 500px; margin: 0px; border-top: 1px solid black;">
+</div>
+
+<div style="overflow-x:auto;">
+<form action="" method = "POST">
+
+</form>
+</div>
+  <!-- table ends here ================================================-->
+
+{% endblock %}

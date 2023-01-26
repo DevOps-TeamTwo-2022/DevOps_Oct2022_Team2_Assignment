@@ -282,6 +282,12 @@ def matchFile():
                     
         return redirect(url_for("matchFile")) 
     
+@app.route("/Setting")
+def settingFile():
+
+
+    return redirect(url_for("settingFile"))
+
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
       
