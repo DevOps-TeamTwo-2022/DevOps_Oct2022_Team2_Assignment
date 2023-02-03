@@ -1,4 +1,6 @@
 from flask import Flask,session,render_template,request,redirect,url_for
+from flask import Flask, render_template, request, send_from_directory
+from werkzeug.utils import secure_filename
 import os
 import pyodbc
 import logging
@@ -12,6 +14,8 @@ import logging
 app = Flask(__name__)
 
 app.secret_key = 'DevOps_Oct2022_Team2_Assignment'
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+ALLOWED_EXTENSIONS = {'xlsx'}
 
 # Specifying the ODBC driver, server name, database, etc. directly
 
@@ -281,7 +285,28 @@ def matchFile():
             session['shown'] = 1                
                     
         return redirect(url_for("matchFile")) 
-    
+
+@app.route("/settings", methods=["GET", "POST"])
+
+def settings():
+    if request.method == 'GET':
+        # Code to retrieve current settings from the database
+        current_settings = {}
+        return render_template('settings.html', settings=current_settings)
+    elif request.method == 'POST':
+        # Code to update the database with the new values
+        new_settings = request.form
+        # update the database with the new_settings dictionary
+        return redirect(url_for('index'))
+    return render_template('settings.html')
+
+@app.route('/')
+def index():
+    # Read the settings from database or file
+    resume_directory = 'resume_dir'
+    email_directory = 'email_dir'
+    internship_period = '01/01/2021 to 31/12/2021'
+    return render_template('indexsettings.html', resume_directory=resume_directory, email_directory=email_directory, internship_period=internship_period)
+
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
-      
