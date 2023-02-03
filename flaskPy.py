@@ -1,6 +1,4 @@
 from flask import Flask,session,render_template,request,redirect,url_for
-from flask import Flask, render_template, request, send_from_directory
-from werkzeug.utils import secure_filename
 import os
 import pyodbc
 import logging
