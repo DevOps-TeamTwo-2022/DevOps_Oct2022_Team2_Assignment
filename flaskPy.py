@@ -283,8 +283,8 @@ def matchFile():
         return redirect(url_for("matchFile")) 
 
 
-@app.route("/Match_Student", methods = ['GET','POST'])
-def matchFile():
+@app.route("/Prepare_Email", methods = ['GET','POST'])
+def prepareFile():
     
     #session.clear()
     
@@ -308,7 +308,7 @@ def matchFile():
         
         studentList,companyList,informationList = checkDatabase()
         
-        return render_template("Match_Student.html",
+        return render_template("Prepare_Email.html",
                            studentList=studentList,
                            companyList=companyList,
                            informationList=informationList)
