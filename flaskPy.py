@@ -187,7 +187,7 @@ def matchFile():
         aList2 = request.form.getlist('assignmentSelected[]')
         aList3 = request.form.getlist('studentSelected[]')
         
-        #app.logger.info('testing info log companySelected: ', aList1)
+        app.logger.info('testing info log companySelected: ', aList1)
         
         cursor = cnxn.cursor()
         
