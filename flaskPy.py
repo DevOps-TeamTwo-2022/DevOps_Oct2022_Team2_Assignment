@@ -281,6 +281,64 @@ def matchFile():
             session['shown'] = 1                
                     
         return redirect(url_for("matchFile")) 
+
+
+@app.route("/Match_Student", methods = ['GET','POST'])
+def matchFile():
+    
+    #session.clear()
+    
+    if session.get('shown') == None:
+        session['shown'] = 0
+        
+    elif session.get('update') == None:
+        session['update'] = ""    
+
+    elif session.get('updateNo') == None:
+        session['updateNo'] = ""
+            
+    if request.method == 'GET':
+        
+        if session['shown'] == 0:
+            session['update'] = ""
+            session['updateNo'] = ""
+        
+        elif session['shown'] == 1:
+            session['shown'] = 0
+        
+        studentList,companyList,informationList = checkDatabase()
+        
+        return render_template("Match_Student.html",
+                           studentList=studentList,
+                           companyList=companyList,
+                           informationList=informationList)
+        
+    if request.method == 'POST':
+        """
+        cnxn = pyodbc.connect(
+            'DRIVER={ODBC Driver 17 for SQL Server}; \
+                SERVER=(localdb)\MSSQLLocalDB; \
+                    DATABASE=DevOps_TeamTwo_2022; \
+                        Trusted_Connection=yes;',autocommit = True)
+           
+        """
+        # use this for github action collection database
+        cnxn = pyodbc.connect(
+            'DRIVER={ODBC Driver 17 for SQL Server}; \
+                SERVER=(localdb)\MSSQLLocalDB; \
+                    DATABASE=tempdb; \
+                    Trusted_Connection=yes;',autocommit = True)
+        
+        
+        studentList,companyList,informationList = checkDatabase()
+        
+        aList1 = request.form.getlist('companySelected[]')
+        aList2 = request.form.getlist('assignmentSelected[]')
+        aList3 = request.form.getlist('studentSelected[]')
+        
+        app.logger.info('testing info log companySelected: ', aList1)
+        
+        return redirect(url_for("prepareFile")) 
     
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
