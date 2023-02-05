@@ -1,9 +1,12 @@
 from flask import Flask,session,render_template,request,redirect,url_for
+from flask import Flask, render_template, request, send_from_directory
+from werkzeug.utils import secure_filename as application
+import pandas as pd
 import os
 import pyodbc
 import logging
 
-## for vscode, type python flaskPy.py in terminal to run at 5221 port
+## for vscode, type python flaskPy.py in terminal to run at 5dum21 port
 # 1) pytest tests/flaskTest.py to run test script
 # python -m pytest tests/flaskTest.py if 1) doesn't work
 # pytest -s prints console
@@ -12,6 +15,8 @@ import logging
 app = Flask(__name__)
 
 app.secret_key = 'DevOps_Oct2022_Team2_Assignment'
+app.config['UPLOAD_FOLDER'] = 'uploads/'
+ALLOWED_EXTENSIONS = {'xlsx'}
 
 # Specifying the ODBC driver, server name, database, etc. directly
 
@@ -187,7 +192,7 @@ def matchFile():
         aList2 = request.form.getlist('assignmentSelected[]')
         aList3 = request.form.getlist('studentSelected[]')
         
-        app.logger.info('testing info log companySelected: ', aList1)
+        #app.logger.info('testing info log companySelected: ', aList1)
         
         cursor = cnxn.cursor()
         
@@ -282,66 +287,69 @@ def matchFile():
                     
         return redirect(url_for("matchFile")) 
 
+@app.route("/settings", methods=["GET", "POST"])
 
-@app.route("/Prepare_Email", methods = ['GET','POST'])
-
-def prepareFile():
-    
-    #session.clear()
-    
-    if session.get('shown') == None:
-        session['shown'] = 0
-        
-    elif session.get('update') == None:
-        session['update'] = ""    
-
-    elif session.get('updateNo') == None:
-        session['updateNo'] = ""
-            
+def settings():
     if request.method == 'GET':
-        
-        if session['shown'] == 0:
-            session['update'] = ""
-            session['updateNo'] = ""
-        
-        elif session['shown'] == 1:
-            session['shown'] = 0
-        
-        studentList,companyList,informationList = checkDatabase()
-        
-        return render_template("Prepare_Email.html",
-                           studentList=studentList,
-                           companyList=companyList,
-                           informationList=informationList)
-        
-    if request.method == 'POST':
-        """
-        cnxn = pyodbc.connect(
-            'DRIVER={ODBC Driver 17 for SQL Server}; \
-                SERVER=(localdb)\MSSQLLocalDB; \
-                    DATABASE=DevOps_TeamTwo_2022; \
-                        Trusted_Connection=yes;',autocommit = True)
-           
-        """
-        # use this for github action collection database
-        cnxn = pyodbc.connect(
-            'DRIVER={ODBC Driver 17 for SQL Server}; \
-                SERVER=(localdb)\MSSQLLocalDB; \
-                    DATABASE=tempdb; \
-                    Trusted_Connection=yes;',autocommit = True)
-        
-        
-        studentList,companyList,informationList = checkDatabase()
-        
-        aList1 = request.form.getlist('companySelected[]')
-        aList2 = request.form.getlist('assignmentSelected[]')
-        aList3 = request.form.getlist('studentSelected[]')
-        
-        app.logger.info('testing info log companySelected: ', aList1)
-        
-      
-        return redirect(url_for("prepareFile")) 
-    
+        # Code to retrieve current settings from the database
+        current_settings = {}
+        return render_template('settings.html', settings=current_settings)
+    elif request.method == 'POST':
+        # Code to update the database with the new values
+        new_settings = request.form
+        # update the database with the new_settings dictionary
+        return redirect(url_for('index'))
+    return render_template('settings.html')
+
+@app.route('/')
+def index():
+    # Read the settings from database or file
+    resume_directory = 'resume_dir'
+    email_directory = 'email_dir'
+    internship_period = '01/01/2021 to 31/12/2021'
+    return render_template('indexsettings.html', resume_directory=resume_directory, email_directory=email_directory, internship_period=internship_period)
+
+@app.route('/')
+def indexUpload():
+    return render_template('Upload_data.html')
+
+@app.route("/Upload_Data", methods=['POST', 'GET'])
+def upload_data():
+    if 'file' not in request.files:
+        return redirect(url_for('Upload_Data'))
+    file = request.files['file']
+    df = pd.read_excel(file)
+
+    # Connect to SQL Server database
+    conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server};' +
+                          'SERVER=(localdb)\MSSQLLocalDB;' +
+                          'DATABASE=DevOps_TeamTwo_2022;' +
+                          'Trusted_Connection=yes;',
+                          autocommit=True)
+                
+    cursor = conn.cursor()
+
+    # Split data into Internship Student Data and Internship Company Data
+    student_data = df[df['Type'] == 'Student Data']
+    company_data = df[df['Type'] == 'Company Data']
+
+    # Insert Internship Student Data into SQL Server
+    for index, row in student_data.iterrows():
+        query = f"INSERT INTO InternshipStudentData (StudentId, StudentName, StudentPreference, Status) " \
+                f"VALUES ('{row['StudentName']}', '{row['StudentID']}', '{row['StudentPreference']}', '{row['Status']}')"
+        cursor.execute(query)
+
+    # Insert Internship Company Data into SQL Server
+    for index, row in company_data.iterrows():
+        query = f"INSERT INTO InternshipCompanyData (Company_Name, Job_Role, Company_Contact, Email) " \
+                f"VALUES ('{row['Company_Name']}', '{row['Job_Role']}', '{row['Company_Contact']}', '{row['Email']})"
+        cursor.execute(query)
+
+    # Commit changes to the database
+    conn.commit()
+
+    return 'File uploaded and data stored in SQL Server database!'
+
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
       

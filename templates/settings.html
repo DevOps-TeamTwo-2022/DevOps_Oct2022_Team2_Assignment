@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block title %}Settings{% endblock %}
+{% block content %}
+
+
+</head>
+  <body>
+    <h1>Change Settings</h1>
+    <form action="/settings" method="post">
+      <label for="resume_directory">Resume Directory</label>
+      <input type="text" id="resume_directory" name="resume_directory" value="{{ resume_directory }}">
+      <br>
+      <label for="email_directory">Email Directory</label>
+      <input type="text" id="email_directory" name="email_directory" value="{{ email_directory }}">
+      <br>
+      <label for="internship_period">Internship Period</label>
+      <input type="text" id="internship_period" name="internship_period" value="{{ internship_period }}">
+      <br>
+      <input type="submit" value="Save">
+    </form>
+  </body>
