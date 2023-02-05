@@ -1,3 +1,5 @@
+from importlib.resources import path
+import re
 from flask import Flask,session,render_template,request,redirect,url_for
 import os
 import pyodbc
@@ -282,11 +284,23 @@ def matchFile():
                     
         return redirect(url_for("matchFile")) 
     
+emailDir = ""
+resumeDir = ""
+
 @app.route("/Settings")
 def settingsFile():
+    global emailDir
+    global resumeDir
+
+    if request.method=='POST':
+        if 'submit-email' in request.form:
+            emailDir = request.form.get("input-email")
+
+        elif 'submit-resume' in request.form:
+            resumeDir = request.form.get("input-resume")
 
 
-    return render_template("settings.html")
+    return render_template("settings.html", emailPath = emailDir, resumePath = resumeDir)
 
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")

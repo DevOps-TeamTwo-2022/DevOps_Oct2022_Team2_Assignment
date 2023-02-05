@@ -4,24 +4,46 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/match_student.css') }}">
   {{ super() }}
 {% endblock %}
+
+<!--Body-->
 {% block content %}
-
-
 <div class="theTitle">
   <h1>Change Settings</h1>
   <hr style="max-width: 500px; margin: 0px; border-top: 1px solid black;">
 </div>
 
 <div style="overflow-x:auto;">
-<form action="" method = "POST">
 
-  <table class="table">
-    <tbody></tbody>
+  <!--Email-->
+  <div class="settings-box">
+    <form action="" method = "POST">
+      {% if emailPath == ""%}
+        <input type="text" id="input-email" name="input-email" placeholder="<File Directory>"/>
+      {% else %}
+        <input type="text" id="input-email" name="input-email" placeholder="{{email-path}}"/>
+      {% endif %}
+        <input type="submit" id="submit-email" name="submit-email" value="Email Directory"/>
+    </form>
+  </div>
 
-  </table>
+  <!--Resume-->
+  <div class="settings-box">
+    <form action="" method = "POST">
+      {% if emailPath == ""%}
+        <input type="text" id="input-resume" name="input-resume" placeholder="<File Directory>"/>
+      {% else %}
+        <input type="text" id="input-resume" name="input-resume" placeholder="{{resume-path}}"/>
+      {% endif %}
+        <input type="submit" id="submit-resume" name="submit-resume" value="Resume Directory"/>
+    </form>
+  </div>
 
-</form>
+  <!--Internship Period-->
+  <div class="settings-box">
+    <form action="" method = "POST">
+        <input type="text" id="internship-period" name="internship-period" />
+    </form>
+  </div>
 </div>
-  <!-- table ends here ================================================-->
 
 {% endblock %}
