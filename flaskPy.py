@@ -187,7 +187,7 @@ def matchFile():
         aList2 = request.form.getlist('assignmentSelected[]')
         aList3 = request.form.getlist('studentSelected[]')
         
-        #app.logger.info('testing info log companySelected: ', aList1)
+        app.logger.info('testing info log companySelected: ', aList1)
         
         cursor = cnxn.cursor()
         
@@ -284,6 +284,7 @@ def matchFile():
 
 
 @app.route("/Prepare_Email", methods = ['GET','POST'])
+
 def prepareFile():
     
     #session.clear()
@@ -338,6 +339,7 @@ def prepareFile():
         
         app.logger.info('testing info log companySelected: ', aList1)
         
+      
         return redirect(url_for("prepareFile")) 
     
 if __name__ == '__main__':
