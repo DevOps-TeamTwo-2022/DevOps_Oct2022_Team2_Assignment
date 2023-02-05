@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %}Match Students{% endblock %}
+{% block title %}Prepare Email{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/match_student.css') }}">
   {{ super() }}
@@ -22,6 +22,7 @@
       <th scope="col">Preference</th>
       <th scope="col">CompanyList</th>
       <th scope="col">Status</th>
+      <th scope="col">Email</th>
       </tr>
   </thead>
 
@@ -29,6 +30,7 @@
   <tbody>
       {% for students in studentList %}
           <tr>
+            {% if students.Status == "Pending confirmation" %}
             {% set studentVar = students.StudentID %}
               <input type="hidden" class="form-control" value='{{studentVar}}' id="studID" name="studentSelected[]">
               <td>{{ students.Name }}</td>
@@ -36,7 +38,7 @@
               
               {% if informationList|length > 0 %}
                 <td> 
-                  <select name="companySelected[]" id="companySelected" class="form-control">
+                
 
                     {% for information in informationList %}
                       {% if information.StudentID == studentVar %}
@@ -49,64 +51,58 @@
                               {% set compJob = companies.Job_Role %}
                               {% set theCompID = companies.ID %}
                             
-                              <option class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</option>
+                              <input type="hidden" class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</input>
                               {% endif %}                           
                           {% endfor %}
                       {% endif %}    
                     {% endfor%}
 
-                    <option class="form-control" value='Unassigned'>Unassigned</option>
+                  
                     {% for companies in companyList %}
 
-                        {% set theVar = companies.Company_Name %}
-                        {% set compJob = companies.Job_Role %}
-                        {% set theCompID = companies.ID %}
-                    
-                        <option class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</option>
+                    {% set theVar = companies.Company_Name %}
+                    {% set compJob = companies.Job_Role %}
+                    {% set theCompID = companies.ID %}
                           
                     {% endfor %}
 
-                  </select>
+                  
                 </td>
 
               <td>
-                <select name="assignmentSelected[]" id="assignmentSelected" class="form-control">
-                  {% set listOfAssignTypes = ["Unassigned","Pending confirmation","Confirmed"] %}
+                  {% set listOfAssignTypes = ["Pending confirmation"] %}
                   {% set statusStud = students.Status %}
-                  <option class="form-control" value="{{statusStud}}" name="assignType" id="assignType">{{statusStud}}</option>
+             
+                  <input type="hidden" class="form-control" value="{{statusStud}}" name="assignType" id="assignType">{{statusStud}}</input>
                   
                   {% for item in listOfAssignTypes %}
                     {% if statusStud != item %}
                       <option class="form-control" value="{{item}}" name="assignType" id="assignType">{{item}}</option>
                     {% endif %}
                   {% endfor %}
-
-                </select>
               </td>                   
                 
               {% else %}
                 <td> 
-                  <select name="companySelected[]" id="companySelected" class="form-control">
-                    <option class="form-control" value='Unassigned'>Unassigned</option>
+                  <input type ="hidden" name="companySelected[]" id="companySelected" class="form-control" >
                     {% for companies in companyList %}        
                       {% set theVar = companies.Company_Name %}
                       {% set compJob = companies.Job_Role %}
                       {% set theCompID = companies.ID %}
                       
                       <option class="form-control" value='{{theCompID}}'>{{theVar}},{{compJob}}</option>
+                    
+                  <input type="hidden" class="form-control" value='{{studentVar}}' id="studID" name="studentSelected[]">
                     {% endfor %}
-                  </select>
+                </input>
                 </td>
-
-                <td>
-                  <select name="assignmentSelected[]" id="assignmentSelected" class="form-control">        
-                    <option class="form-control" value="Unassigned" name="assignType" id="assignType">Unassigned</option>
-                    <option class="form-control" value="Pending confirmation" name="assignType" id="assignType">Pending confirmation</option>
-                    <option class="form-control" value="Confirmed" name="assignType" id="assignType">Confirmed</option>
-                  </select>
-                </td>        
               {% endif %}
-
+              <td>
+                <a href="{{url_for('prepareFile')}}">Prepare Email</a></li>
+              </td>
+              
+              {% endif %}
+          
           </tr>
 
       {% endfor %}
@@ -115,8 +111,6 @@
 
 </table>
 
-<button type="btnAdd" class="btn btn-primary">Submit</button>
-<h2 class="sessionVars">{{session['updateNo']}} {{session['update']}}</h2>
 </form>
 </div>
   <!-- table ends here ================================================-->
