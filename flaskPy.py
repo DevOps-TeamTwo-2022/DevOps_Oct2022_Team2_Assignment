@@ -1,12 +1,12 @@
 from flask import Flask,session,render_template,request,redirect,url_for
 from flask import Flask, render_template, request, send_from_directory
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename as application
 import pandas as pd
 import os
 import pyodbc
 import logging
 
-## for vscode, type python flaskPy.py in terminal to run at 5221 port
+## for vscode, type python flaskPy.py in terminal to run at 5dum21 port
 # 1) pytest tests/flaskTest.py to run test script
 # python -m pytest tests/flaskTest.py if 1) doesn't work
 # pytest -s prints console
@@ -366,8 +366,14 @@ def index():
     internship_period = '01/01/2021 to 31/12/2021'
     return render_template('indexsettings.html', resume_directory=resume_directory, email_directory=email_directory, internship_period=internship_period)
 
+@app.route('/')
+def indexUpload():
+    return render_template('Upload_data.html')
+
 @app.route("/Upload_Data", methods=['POST', 'GET'])
 def upload_data():
+    if 'file' not in request.files:
+        return redirect(url_for('Upload_Data'))
     file = request.files['file']
     df = pd.read_excel(file)
 
