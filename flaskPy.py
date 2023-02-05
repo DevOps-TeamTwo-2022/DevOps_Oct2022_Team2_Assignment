@@ -284,6 +284,7 @@ def matchFile():
 
 
 @app.route("/Prepare_Email", methods = ['GET','POST'])
+
 def prepareFile():
     
     #session.clear()
@@ -337,6 +338,77 @@ def prepareFile():
         aList3 = request.form.getlist('studentSelected[]')
         
         app.logger.info('testing info log companySelected: ', aList1)
+        
+        cursor = cnxn.cursor()
+        
+        tableUpdatedOccured = False
+        
+        tempCountExecutes = 0
+        
+        a = []
+        b = []
+        d = []
+        e = []
+        
+        for m in studentList:
+            a.append([m.get(k) for k in ["StudentID"]])
+            b.append([m.get(l) for l in ["Status"]])       
+        
+        for j in informationList:
+            d.append([j.get(n) for n in ["StudentID"]])
+            e.append([j.get(n) for n in ["ID"]])
+            
+        a = [item for sublist in a for item in sublist]
+        b = [item for sublist in b for item in sublist]
+        d = [item for sublist in d for item in sublist] 
+        e = [str(item) for sublist in e for item in sublist]                   
+        
+        for i in range(len(aList1)):
+            
+            if aList1[i] != "Unassigned":
+                
+                found = False
+                f = None
+                
+                #app.logger.info('d value here', d) 
+                    
+                    
+             
+                if aList2[i] == "Pending Confirmation":
+                            tableUpdatedOccured = True
+                            tempCountExecutes = tempCountExecutes + 1                            
+                            cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])
+                            cursor.execute("DELETE FROM dbo.Internship_Information_Data WHERE StudentID = ?", aList3[i])   
+                else:
+                            tableUpdatedOccured = True
+                            tempCountExecutes = tempCountExecutes + 1                                
+                            cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])        
+                            
+                if found == False:
+                    if aList2[i] == "Unassigned":
+                        aList2[i] = "Pending confirmation"
+                        tableUpdatedOccured = True
+                        tempCountExecutes = tempCountExecutes + 1
+                        cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])
+                        cursor.execute("INSERT INTO dbo.Internship_Information_Data (StudentID,ID) VALUES (?,?)", aList3[i], aList1[i])
+                    else:
+                        tableUpdatedOccured = True
+                        tempCountExecutes = tempCountExecutes + 1   
+                        cursor.execute("UPDATE dbo.Internship_Student_Data SET Status = ? WHERE StudentID = ?", aList2[i], aList3[i])
+                        cursor.execute("INSERT INTO dbo.Internship_Information_Data (StudentID,ID) VALUES (?,?)", aList3[i], aList1[i]) 
+      
+        cnxn.close()
+        
+        if tableUpdatedOccured == False:
+            session['updateNo'] = tempCountExecutes
+            session['update'] = "tables updated"
+            session['shown'] = 1
+            
+        elif tableUpdatedOccured == True:
+            session['updateNo'] = tempCountExecutes
+            session['update'] = "tables updated"
+            session['shown'] = 1                
+                    
         
         return redirect(url_for("prepareFile")) 
     
