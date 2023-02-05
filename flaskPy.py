@@ -287,8 +287,6 @@ def matchFile():
                     
         return redirect(url_for("matchFile")) 
 
-<<<<<<< HEAD
-=======
 @app.route("/Prepare_Email", methods = ['GET','POST'])
 def prepareFile():
     
@@ -346,7 +344,6 @@ def prepareFile():
         
         return redirect(url_for("prepareFile"))
 
->>>>>>> origin/justin
 @app.route("/settings", methods=["GET", "POST"])
 
 def settings():
