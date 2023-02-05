@@ -188,7 +188,7 @@ def matchFile():
         aList3 = request.form.getlist('studentSelected[]')
         
         #app.logger.info('testing info log companySelected: ', aList1)
-        
+    
         cursor = cnxn.cursor()
         
         tableUpdatedOccured = False
@@ -282,11 +282,11 @@ def matchFile():
                     
         return redirect(url_for("matchFile")) 
     
-@app.route("/Setting")
-def settingFile():
+@app.route("/Settings")
+def settingsFile():
 
 
-    return redirect(url_for("settingFile"))
+    return render_template("settings.html")
 
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
