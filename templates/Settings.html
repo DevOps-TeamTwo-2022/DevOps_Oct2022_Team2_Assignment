@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block title %}Settings{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/match_student.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
   {{ super() }}
 {% endblock %}
 
@@ -13,37 +13,37 @@
 </div>
 
 <div style="overflow-x:auto;">
-
-  <!--Email-->
-  <div class="settings-box">
-    <form action="" method = "POST">
+  <form action="" method="post" id="settings-form">
+    <!--Email-->
+    <div class="settings-box">
       {% if emailPath == ""%}
         <input type="text" id="input-email" name="input-email" placeholder="<File Directory>"/>
       {% else %}
         <input type="text" id="input-email" name="input-email" placeholder="{{email-path}}"/>
       {% endif %}
         <input type="submit" id="submit-email" name="submit-email" value="Email Directory"/>
-    </form>
-  </div>
+    </div>
 
-  <!--Resume-->
-  <div class="settings-box">
-    <form action="" method = "POST">
+    <!--Resume-->
+    <div class="settings-box">
       {% if emailPath == ""%}
         <input type="text" id="input-resume" name="input-resume" placeholder="<File Directory>"/>
       {% else %}
         <input type="text" id="input-resume" name="input-resume" placeholder="{{resume-path}}"/>
       {% endif %}
         <input type="submit" id="submit-resume" name="submit-resume" value="Resume Directory"/>
-    </form>
+    </div>
+
+    <!--Internship Period-->
+    <div class="settings-box">
+        <input type="text" id="internship-period" name="internship-period" />
+    </div>
+  </form>
+  
+  <div class="settings-box">
+    <button type="submit" form="settings-form" value="submit">Save</button>
   </div>
 
-  <!--Internship Period-->
-  <div class="settings-box">
-    <form action="" method = "POST">
-        <input type="text" id="internship-period" name="internship-period" />
-    </form>
-  </div>
 </div>
 
 {% endblock %}
