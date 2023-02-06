@@ -28,6 +28,7 @@ jobs:
         pip install regex
         pip install selenium
         pip install webdriver-manager 
+        pip install pandas
 
     - name: Checkout Own Repo
       uses: actions/checkout@v2

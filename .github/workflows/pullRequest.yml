@@ -1,4 +1,4 @@
-name: CD for delivery
+name: CD for delivery on pull
 
 on:
   pull_request:
@@ -27,7 +27,8 @@ jobs:
         pip install pyodbc      
         pip install regex
         pip install selenium
-        pip install webdriver-manager 
+        pip install webdriver-manager
+        pip install pandas
         
     - name: Checkout Own Repo
       uses: actions/checkout@v2

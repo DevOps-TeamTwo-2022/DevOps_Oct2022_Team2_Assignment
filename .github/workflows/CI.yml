@@ -1,8 +1,8 @@
-name: CI for Hello World
+name: CI for DevOps_Oct2022_Team2_Assignment on push
 
 on:
   push:
-    branches: [dansBranch]
+    branches: [dansBranch,justin,jinhui,JinHui,syufiSetting]
     
 jobs:
   build:
@@ -28,6 +28,7 @@ jobs:
         pip install regex
         pip install selenium
         pip install webdriver-manager 
+        pip install pandas
 
     - name: Checkout Own Repo
       uses: actions/checkout@v2
