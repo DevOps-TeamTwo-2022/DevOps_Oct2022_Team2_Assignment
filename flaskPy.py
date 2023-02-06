@@ -298,6 +298,12 @@ def settingsFile():
 
         elif 'submit-resume' in request.form:
             resumeDir = request.form.get("input-resume")
+    
+    else:
+        # Load the current settings from the database
+        resume_directory = "C:/Resumes"
+        email_directory = "C:/Emails"
+        internship_period = "01/01/2021 to 31/12/2021"
 
 
     return render_template("settings.html", emailPath = emailDir, resumePath = resumeDir)
