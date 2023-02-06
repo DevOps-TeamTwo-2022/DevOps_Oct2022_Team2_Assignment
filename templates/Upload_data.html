@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/match_student.css') }}">
+  {{ super() }}
+{% endblock %}
+{% block title %}Upload Data{% endblock %}
+
+{% block content %}
+<div class="theTitle">
+  <h1>Upload Data</h1>
+  <hr style="max-width: 500px; margin: 0px; border-top: 1px solid black;">
+</div>
+
+<body>
+  <h1>Upload Student Data</h1>
+  <form action="{{ url_for('upload_data') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file">
+    <input type="submit" value="Upload">
+  </form>
+</body>
+{% endblock %}

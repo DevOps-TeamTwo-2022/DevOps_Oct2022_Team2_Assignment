@@ -1,0 +1,38 @@
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <a href="/settings">Change Settings</a>
+    <br>
+    <p>Resume Directory: {{ resume_directory }}</p>
+    <p>Email Directory: {{ email_directory }}</p>
+    <p>Internship Period: {{ internship_period }}</p>
+  </body>
+</html><html>
+  {% extends "layout.html" %}
+{% block title %}Home{% endblock %}
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    .important { color: #336699; }
+  </style>
+{% endblock %}
+{% block content %}
+  <h1>Student Internship Homepage</h1>
+  <p class="important">
+    Assign students to internship
+{% endblock %}
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <a href="/settings">Change Settings</a>
+    <br>
+    <p>Resume Directory: {{ resume_directory }}</p>
+    <p>Email Directory: {{ email_directory }}</p>
+    <p>Internship Period: {{ internship_period }}</p>
+  </body>
+</html>
