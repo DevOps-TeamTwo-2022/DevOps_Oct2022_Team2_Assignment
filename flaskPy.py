@@ -366,15 +366,11 @@ def index():
     internship_period = '01/01/2021 to 31/12/2021'
     return render_template('indexsettings.html', resume_directory=resume_directory, email_directory=email_directory, internship_period=internship_period)
 
-@app.route('/')
-def indexUpload():
-    return render_template('Upload_data.html')
-
 @app.route("/Upload_Data", methods=['POST', 'GET'])
 def upload_data():
     if 'file' not in request.files:
-        return redirect(url_for('Upload_Data'))
-    file = request.files['file']
+        return render_template("Upload_data.html")
+    file = request.files['student-file']
     df = pd.read_excel(file)
 
     # Connect to SQL Server database
@@ -387,20 +383,20 @@ def upload_data():
     cursor = conn.cursor()
 
     # Split data into Internship Student Data and Internship Company Data
-    student_data = df[df['Type'] == 'Student Data']
-    company_data = df[df['Type'] == 'Company Data']
+    #student_data = df[df['Type'] == 'Student Data']
+    #company_data = df[df['Type'] == 'Company Data']
 
     # Insert Internship Student Data into SQL Server
-    for index, row in student_data.iterrows():
-        query = f"INSERT INTO InternshipStudentData (StudentId, StudentName, StudentPreference, Status) " \
+    for index, row in df.iterrows():
+        query = f"INSERT INTO Internship_Student_Data (StudentId, StudentName, StudentPreference, Status) " \
                 f"VALUES ('{row['StudentName']}', '{row['StudentID']}', '{row['StudentPreference']}', '{row['Status']}')"
         cursor.execute(query)
 
     # Insert Internship Company Data into SQL Server
-    for index, row in company_data.iterrows():
-        query = f"INSERT INTO InternshipCompanyData (Company_Name, Job_Role, Company_Contact, Email) " \
-                f"VALUES ('{row['Company_Name']}', '{row['Job_Role']}', '{row['Company_Contact']}', '{row['Email']})"
-        cursor.execute(query)
+    #for index, row in company_data.iterrows():
+    #    query = f"INSERT INTO Internship_Company_Data (Company_Name, Job_Role, Company_Contact, Email) " \
+    #            f"VALUES ('{row['Company_Name']}', '{row['Job_Role']}', '{row['Company_Contact']}', '{row['Email']})"
+    #    cursor.execute(query)
 
     # Commit changes to the database
     conn.commit()
