@@ -14,7 +14,12 @@
 <body>
   <h1>Upload Student Data</h1>
   <form action="{{ url_for('upload_data') }}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file">
+    <input type="file" name="student-file">
+    <input type="submit" value="Upload">
+  </form>
+  <h1>Upload Company Data</h1>
+  <form action="{{ url_for('upload_data') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="company-file">
     <input type="submit" value="Upload">
   </form>
 </body>
