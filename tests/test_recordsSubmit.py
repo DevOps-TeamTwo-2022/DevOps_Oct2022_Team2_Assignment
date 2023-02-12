@@ -65,7 +65,7 @@ def test_scenario1(): #route to match student via navbar
     time.sleep(4)
     
     driver.find_element(By.CLASS_NAME,"btn").click()       
-    time.sleep(5)    
+    time.sleep(10)    
     
   
     driver.quit()
