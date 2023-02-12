@@ -44,7 +44,7 @@ def test_scenario1(): #route to match student via navbar
     time.sleep(1)
 
     title = driver.title
-    assert title == "Settings"
+    assert title == "Settings - My Web Page"
     
     time.sleep(2)
 
