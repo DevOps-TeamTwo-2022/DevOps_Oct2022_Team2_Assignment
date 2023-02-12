@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver import ActionChains
 
 import pytest
 import time
@@ -48,6 +49,23 @@ def test_scenario1(): #route to match student via navbar
     
     time.sleep(2)
 
+    nav_button = driver.find_element(by=By.ID, value="companySelected")
     
+    nav_button.click()
+    time.sleep(2)
+       
+    CompanyList = driver.find_element(by=By.ID, value="companySelected")
+    CompanyList.send_keys("Company A,Software Developer")
+    CompanyList.click()
+    time.sleep(4)
 
+    Status = driver.find_element(by=By.ID, value="assignmentSelected")
+    Status.send_keys("Pending confirmation")
+    Status.click()
+    time.sleep(4)
+    
+    driver.find_element(By.CLASS_NAME,"btn").click()       
+    time.sleep(5)    
+    
+  
     driver.quit()
