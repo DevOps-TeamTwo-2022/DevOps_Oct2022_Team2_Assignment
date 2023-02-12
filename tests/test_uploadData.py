@@ -44,7 +44,7 @@ def test_scenario1(): #route to match student via navbar
     time.sleep(1)
 
     title = driver.title
-    assert title == "Upload Data"
+    assert title == "Upload Data - My Webpage"
     
     time.sleep(2)
 
