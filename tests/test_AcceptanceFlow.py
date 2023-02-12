@@ -48,4 +48,40 @@ def test_scenario1(): #route to match student via navbar
     
     time.sleep(2)
 
+    nav_button = driver.find_element(by=By.ID, value="companySelected")
+    
+    nav_button.click()
+    time.sleep(2)
+       
+    CompanyList = driver.find_element(by=By.ID, value="companySelected")
+    CompanyList.send_keys("Company A,Software Developer")
+    CompanyList.click()
+    time.sleep(4)
+
+    Status = driver.find_element(by=By.ID, value="assignmentSelected")
+    Status.send_keys("Pending confirmation")
+    Status.click()
+    time.sleep(4)
+    
+    driver.find_element(By.CLASS_NAME,"btn").click()       
+    time.sleep(5)    
+    
+    driver.find_element(By.XPATH, \
+        "//a[@href='/Prepare_Email']").click()
+    
+    time.sleep(1)
+
+    for window_handle in driver.window_handles:
+        if window_handle != original_window:
+            driver.switch_to.window(window_handle)
+            break    
+
+    time.sleep(1)
+
+    title = driver.title
+    assert title == "Prepare Email - My Webpage"
+    
+    time.sleep(2)
+
+
     driver.quit()
