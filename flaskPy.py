@@ -342,7 +342,76 @@ def prepareFile():
         
         app.logger.info('testing info log companySelected: ', aList1)
         
-        return redirect(url_for("prepareFile"))
+      
+        return redirect(url_for("prepareFile")) 
+
+
+@app.route('/SendFile', methods=['POST']) 
+def SendFile():
+
+     #session.clear()
+    
+    if session.get('shown') == None:
+        session['shown'] = 0
+        
+    elif session.get('update') == None:
+        session['update'] = ""    
+
+    elif session.get('updateNo') == None:
+        session['updateNo'] = ""
+            
+    if request.method == 'GET':
+        
+        if session['shown'] == 0:
+            session['update'] = ""
+            session['updateNo'] = ""
+        
+        elif session['shown'] == 1:
+            session['shown'] = 0
+        
+        studentList,companyList,informationList = checkDatabase()
+        
+        return render_template("SendFile.html",
+                           studentList=studentList,
+                           companyList=companyList,
+                           informationList=informationList)
+        
+    if request.method == 'POST':
+        """
+        cnxn = pyodbc.connect(
+            'DRIVER={ODBC Driver 17 for SQL Server}; \
+                SERVER=(localdb)\MSSQLLocalDB; \
+                    DATABASE=DevOps_TeamTwo_2022; \
+                        Trusted_Connection=yes;',autocommit = True)
+           
+        """
+        # use this for github action collection database
+        cnxn = pyodbc.connect(
+            'DRIVER={ODBC Driver 17 for SQL Server}; \
+                SERVER=(localdb)\MSSQLLocalDB; \
+                    DATABASE=tempdb; \
+                    Trusted_Connection=yes;',autocommit = True)
+        
+        
+        studentList,companyList,informationList = checkDatabase()
+        
+        aList1 = request.form.getlist('companySelected[]')
+        aList2 = request.form.getlist('assignmentSelected[]')
+        aList3 = request.form.getlist('studentSelected[]')
+        
+        app.logger.info('testing info log companySelected: ', aList1)
+        outlook = win32com.client.Dispatch('outlook.application')
+        mail = outlook.CreateItem(0)
+        mail.To = 's10208093@connect.np.edu.sg'
+        mail.Subject = 'Internship Response to Internship Request'
+        mail.HTMLBody = '<h3>Dear <Company Contact></h3>'
+        mail.Body = "Kindly find attached our students resume for the year semester Internship in response to your job description which you have submitted to us. We look forward to your favorable response and to working with your company for the upcoming internship period Internship Period."
+       
+        mail.Send()
+        
+        
+        return redirect(url_for("SendFile")) 
+       
 
 @app.route("/settings", methods=["GET", "POST"])
 
