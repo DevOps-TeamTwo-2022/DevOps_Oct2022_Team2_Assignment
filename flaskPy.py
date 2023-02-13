@@ -5,7 +5,6 @@ from werkzeug.utils import secure_filename as application
 import os
 import pyodbc
 import logging
-import win32com.client
 
 ## for vscode, type python flaskPy.py in terminal to run at 5dum21 port
 # 1) pytest tests/flaskTest.py to run test script
