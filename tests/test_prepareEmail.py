@@ -12,7 +12,7 @@ import pytest
 import time
 
 
-def test_scenario1(): #route to settings via navbar
+def test_scenario1(): #route to match student via navbar
     driver = webdriver.Chrome \
         (service=ChromeService \
             (executable_path=ChromeDriverManager() \
@@ -25,14 +25,14 @@ def test_scenario1(): #route to settings via navbar
     title = driver.title
     assert title == "Home - My Webpage"
 
-    driver.implicitly_wait(0.5)
+    driver.implicitly_wait(1)
 
     time.sleep(1)
     
     original_window = driver.current_window_handle  
     
     driver.find_element(By.XPATH, \
-        "//a[@href='/Settings']").click()
+        "//a[@href='/Prepare_Email']").click()
     
     time.sleep(1)
 
@@ -44,7 +44,7 @@ def test_scenario1(): #route to settings via navbar
     time.sleep(1)
 
     title = driver.title
-    assert title == "Settings - My Webpage"
+    assert title == "Prepare Email - My Webpage"
     
     time.sleep(2)
 
