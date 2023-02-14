@@ -29,7 +29,6 @@ jobs:
         pip install selenium
         pip install webdriver-manager 
         pip install pandas
-        pip install pywin32
 
     - name: Checkout Own Repo
       uses: actions/checkout@v2

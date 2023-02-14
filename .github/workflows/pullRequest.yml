@@ -3,6 +3,8 @@ name: CD for delivery on pull
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]    
     
 jobs:
   build:
