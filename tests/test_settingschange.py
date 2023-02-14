@@ -34,7 +34,7 @@ def test_scenario1(): #route to match student via navbar
     original_window = driver.current_window_handle  
     
     driver.find_element(By.XPATH, \
-        "//a[@href='/Prepare_Email']").click()
+        "//a[@href='/Settings']").click()
     
     time.sleep(1)
 
@@ -46,19 +46,20 @@ def test_scenario1(): #route to match student via navbar
     time.sleep(1)
 
     title = driver.title
-    assert title == "Prepare Email - My Webpage"
+    assert title == "Settings - My Webpage"
     
     time.sleep(2)
 
-    driver.find_element(By.CLASS_NAME,"button").click()   
-
+    SettingsList = driver.find_element(by=By.ID, value="input-email")
+    SettingsList.send_keys("test@abc.com")
+    driver.find_element(By.ID,"submit-email").click()   
     time.sleep(2)    
 
-    response = app.test_client().get('/Prepare_Email')
+    response = app.test_client().get('/Settings')
   
-    email_Open = app.test_client().get('/SendFile')
+    settings_Open = app.test_client().get('/Settings')
   
-    tempList = [str(response),str(email_Open)]
+    tempList = [str(response),str(settings_Open)]
   
     print("Redirect to main",tempList[0],"Open Prepare_Email.html",tempList[1])
   
