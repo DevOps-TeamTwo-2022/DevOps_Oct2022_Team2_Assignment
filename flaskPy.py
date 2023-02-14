@@ -1,3 +1,5 @@
+from importlib.resources import path
+import re
 from flask import Flask,session,render_template,request,redirect,url_for
 from flask import Flask, render_template, request, send_from_directory
 from werkzeug.utils import secure_filename as application
@@ -193,7 +195,7 @@ def matchFile():
         aList3 = request.form.getlist('studentSelected[]')
         
         #app.logger.info('testing info log companySelected: ', aList1)
-        
+    
         cursor = cnxn.cursor()
         
         tableUpdatedOccured = False
@@ -471,6 +473,31 @@ def upload_data():
     conn.commit()
 
     return 'File uploaded and data stored in SQL Server database!'
+
+    
+emailDir = ""
+resumeDir = ""
+
+@app.route("/Settings")
+def settingsFile():
+    global emailDir
+    global resumeDir
+
+    if request.method=='POST':
+        if 'submit-email' in request.form:
+            emailDir = request.form.get("input-email")
+
+        elif 'submit-resume' in request.form:
+            resumeDir = request.form.get("input-resume")
+    
+    else:
+        # Load the current settings from the database
+        resume_directory = "C:/Resumes"
+        email_directory = "C:/Emails"
+        internship_period = "01/01/2021 to 31/12/2021"
+
+
+    return render_template("settings.html", emailPath = emailDir, resumePath = resumeDir)
 
 if __name__ == '__main__':
     app.run(debug=True,port=5221,host="localhost")
