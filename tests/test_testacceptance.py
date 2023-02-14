@@ -66,6 +66,7 @@ def test_scenario1(): #route to match student via navbar
     driver.find_element(By.CLASS_NAME,"btn").click()       
     time.sleep(5)    
     
+    ## route to prepare email
     driver.find_element(By.XPATH, \
         "//a[@href='/Prepare_Email']").click()
     

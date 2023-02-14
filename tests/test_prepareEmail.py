@@ -12,7 +12,7 @@ import pytest
 import time
 
 
-def test_scenario1(): #route to match student via navbar
+def test_scenario1(): #route to prepare email via navbar
     driver = webdriver.Chrome \
         (service=ChromeService \
             (executable_path=ChromeDriverManager() \
