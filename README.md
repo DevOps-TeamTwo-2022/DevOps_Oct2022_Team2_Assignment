@@ -13,23 +13,3 @@ change the setting of resume directory for next semester when needed. Utility
 modules could also be created to further enhance the operations of the system
 where necessary
 
-
-# Test Cases:
-
-# Test Scenario 1:
--Navigation bar directs user to desired page
-
-# Test Conditions:
--User must on the website
--Site is online at any given time
-
-# Test Values:
--Upload Data
-
-# Test Description:
--When user reaches the homepage, the user will click on the "Upload Data" button on the navigation bar
-
-# Expected Test Outcomes:
--User redirected to the Upload Data page
-
-# Resultant Screenshot:
